@@ -54,6 +54,10 @@ function instructions_callback() {
 
      $whatever = $_GET['whatever'];
 
+     if (isset($_GET['whatever'])){
+     	echo get_weeks();
+  		} //end if $_Get[whatever]
+
      if ($whatever == '1234') {
 
              echo 'the values match';
@@ -64,7 +68,52 @@ function instructions_callback() {
      exit(); // this is required to return a proper result & exit is faster than die();
 }
 
+function get_weeks() {
+		global $wpdb;
 
+		// WP_User_Query arguments. Search the database for the values from the pie checkbox.
+		//dhno this value is pie_checkbox_6
+		$args = array (
+			'meta_query'     => array(
+				array(
+					'key'       => 'pie_checkbox_10',
+					
+				),
+			),
+		);
+
+
+		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
+
+		$current_week = date("W");
+		$prev_week = date("W") - 1;
+		$next_week = date("W") + 1;
+		$prev_week_string = 'the previous week is: ' . $prev_week;
+
+		// Query users based on the above arguments
+		$user_query = new WP_User_Query( $args );
+
+
+		// Create an empty array to save emails to.
+		$emails = array();
+
+
+
+// The User Loop
+if ( ! empty( $user_query->results ) ) {
+	
+	foreach ( $user_query->results as $user ) {
+		echo '<p>found a user</p><br>';
+		$allmeta = get_user_meta($user->id);
+		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->id, 'pie_checkbox_10', true) . '<br>';
+		//return(get_user_meta($user->id, 'last_name'));
+	} //end for each
+
+	} else { 
+		echo 'didnt finda  user';
+	}
+	
+} //end get weeks
 
 
 
