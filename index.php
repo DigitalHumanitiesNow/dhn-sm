@@ -11,30 +11,54 @@ function test_plugin_setup_menu(){
         add_menu_page( 'Test Plugin Page', 'Test Plugin', 'manage_options', 'test-plugin', 'test_init' );
 }
  
-function test_init(){
-        echo "<h1>Hello World!</h1>";
-        echo "<button id='test' type='button'>Click Me!</button>";
+ add_action('in_admin_header', 'my_ajax_button');
+
+function my_ajax_button() {
+    echo '<button class="myajax">Test</button>';
 }
 
+add_action('admin_head', 'my_action_javascript');
 
-// Register Script
-function custom_scripts() {
+function my_action_javascript() {
+?>
+<script type="text/javascript" >
+jQuery(document).ready(function($) {
 
-	wp_register_script( 'customjs', 'http://local.wordpress.dev/wp-content/plugins/dhn-sm/myscript.js', array( 'jquery' ), false, false );
-	wp_enqueue_script( 'customjs' );
+    $('.myajax').click(function(){
+        var data = {
+            action: 'my_action',
+            whatever: 1233
+        };
 
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        $.get(ajaxurl, data, function(response) {
+            alert('Got this from the server: ' + response);
+        });
+    });
+
+
+});
+</script>
+<?php
 }
-add_action( 'admin_enqueue_scripts', 'custom_scripts' );
 
+add_action('wp_ajax_my_action', 'my_action_callback');
 
-function test_ajax_load_scripts() {
-	// load our jquery file that sends the $.post request
-	wp_enqueue_script( "ajax-test", plugin_dir_url( __FILE__ ) . '/ajax-test.js', array( 'jquery' ) );
- 
-	// make the ajaxurl var available to the above script
-	wp_localize_script( 'ajax-test', 'the_ajax_script', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );	
+function my_action_callback() {
+     global $wpdb; // this is how you get access to the database
+
+     $whatever = $_GET['whatever'];
+
+     if ($whatever == '1234') {
+
+             echo 'the values match';
+     } else {
+     	echo 'error the values dont match';
+     }
+
+     exit(); // this is required to return a proper result & exit is faster than die();
 }
-add_action('wp_print_scripts', 'test_ajax_load_scripts');
+
 
 
 
