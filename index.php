@@ -5,17 +5,20 @@ Description: A test plugin to demonstrate wordpress functionality
 Author: Simon Lissack
 Version: 0.1
 */
-add_action('admin_menu', 'test_plugin_setup_menu');
+add_action('admin_menu', 'user_management_menu_page');
  
-function test_plugin_setup_menu(){
-        add_menu_page( 'Test Plugin Page', 'Test Plugin', 'manage_options', 'test-plugin', 'test_init' );
+function user_management_menu_page(){
+        add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'custompage', 'user_man_page' );
 }
- 
- add_action('in_admin_header', 'my_ajax_button');
 
-function my_ajax_button() {
-    echo '<button class="instructions_button">Instructional Email</button>';
+function user_man_page() {
+	echo '<h1>Admin Page Test</h1>
+		<div class="button-container">
+		<button class="instructions_button">Instructional Email</button>
+		</div>';
 }
+ 
+ 
 
 //Ajax code adapted from codex and this question on WordPress Development 
 //http://wordpress.stackexchange.com/questions/24235/how-can-i-run-ajax-on-a-button-click-event
