@@ -19,6 +19,7 @@ function user_man_page() {
 		<button class="instructions_button">Instructional Email</button>
 		</div>';
 	echo '<div class="alerts"></div>';
+	echo '<div class="weeksetup"></div>';
 }
  
  
@@ -28,28 +29,22 @@ function user_man_page() {
 
 add_action('admin_head', 'instructions_action_javascript');
 
-function instructions_action_javascript() {
-?>
-<script type="text/javascript" >
-jQuery(document).ready(function($) {
+function instructions_action_javascript() { ?>
+	<script type="text/javascript" >
+		jQuery(document).ready(function($) {
 
-    $('.instructions_button').click(function(){
-        var data = {
-            action: 'instructional_email',
-            whatever: 1234
-        };
-
-        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-        $.get(ajaxurl, data, function(response) {
-            $('.alerts').append("I just appended this content.<br>" + response)
-        });
-    });
-
-
-});
-</script>
-<?php
-}
+    		$('.instructions_button').click(function(){
+        		var data = {
+            		action: 'instructional_email',
+            		instruction_action_trigger: true };
+     
+        	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        	$.get(ajaxurl, data, function(response) {
+            	$('.alerts').append("I just appended this content.<br>" + response)  }); //end .get
+    		}); //end .instructions_button
+		}); 
+	</script>
+<?php } //end instructions_action_javascript
 
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
@@ -58,13 +53,15 @@ add_action('wp_ajax_instructional_email', 'instructions_callback');
 function instructions_callback() {
      global $wpdb; // this is how you get access to the database
 
-     $whatever = $_GET['whatever'];
+     $instruction_action_trigger = $_GET['instruction_action_trigger'];
+     // $weeksinfo = $_GET['weeks_info'];
 
-     if (isset($_GET['whatever'])){
+     if (isset($_GET['instruction_action_trigger'])){
      	echo get_weeks();
+     	echo output_week_info();
   		} //end if $_Get[whatever]
 
-     if ($whatever == '1234') {
+     if ($instruction_action_trigger == 'true') {
 
              echo 'the values match';
      } else {
@@ -72,6 +69,14 @@ function instructions_callback() {
      }
 
      exit(); // this is required to return a proper result & exit is faster than die();
+}
+function output_week_info() {
+	$current_week = date("W");
+	$current_year = date("Y");
+	$date = new DateTime();
+	$date->setISODate($current_year,$current_week);
+	$EL_Start_date = $date->format('d-M-Y');
+	return $EL_Start_date;
 }
 
 function get_weeks() {
@@ -94,7 +99,7 @@ function get_weeks() {
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
-		$prev_week_string = 'the previous week is: ' . $prev_week;
+		
 
 		// Query users based on the above arguments
 		$user_query = new WP_User_Query( $args );
@@ -110,6 +115,8 @@ if ( ! empty( $user_query->results ) ) {
 	
 	foreach ( $user_query->results as $user ) {
 		echo '<p>found a user</p><br>';
+		global $usercount;
+		$usercount = $usercount + 1;
 		$allmeta = get_user_meta($user->id);
 		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->id, 'pie_checkbox_10', true) . '<br>';
 		//return(get_user_meta($user->id, 'last_name'));
@@ -122,6 +129,87 @@ if ( ! empty( $user_query->results ) ) {
 } //end get weeks
 
 
+/******
+
+Generate EL Info Functions
+
+*/////
+
+add_action('admin_footer', 'EL_Info_Generator');
+
+function EL_Info_Generator() { ?>
+	<script type="text/javascript" >
+		jQuery(document).ready(function($) {
+
+    		
+        		var data = {
+            		'action': 'EL_week_data',
+            		'EL_data_trigger': true
+            	};
+     
+        	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        	$.get(ajaxurl, data, function(response) {
+        		//alert('test');
+        		console.log('test');
+            	$('.weeksetup').append(response)  }); //end .get
+    		}); //end .instructions_button
+		
+	</script>
+<?php } //end instructions_action_javascript
+
+//The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+
+add_action('wp_ajax_EL_week_data', 'EL_week_data_callback');
+
+function EL_week_data_callback() {
+     global $wpdb; // this is how you get access to the database
+
+     
+
+     	global $wpdb;
+     	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
+		//dhno this value is pie_checkbox_6
+		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_10',),),);
+		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
+		$current_week = date("W");
+		$prev_week = date("W") - 1;
+		$next_week = date("W") + 1;
+		// Query users based on the above arguments
+		$user_query = new WP_User_Query( $args );
+		// Create an empty array to save emails to.
+		// The User Loop
+		$prev_count = 0;
+		$next_count = 0;
+		$current_count = 0;
+		if ( ! empty( $user_query->results ) ) {
+	
+			foreach ( $user_query->results as $user ) {
+				//echo '<p>found a user</p><br>';
+				$allmeta = get_user_meta($user->id);
+				$checkbox = get_user_meta($user->id, 'pie_checkbox_10', true);
+				if (in_array($prev_week, $checkbox)) {
+					$prev_count = $prev_count + 1;
+				} elseif (in_array($next_week, $checkbox)) {
+					$next_count = $next_count + 1;
+				} elseif (in_array($current_week, $checkbox)) {
+					$current_count = $current_count + 1;
+				}
+			}
+				//return(get_user_meta($user->id, 'last_name'));
+	} //end for each
+	 //endif
+	
+	$returnstring = 'There are ' . $current_count . ' signed up for this week. Last week there were '. $prev_count . 'and next week there are ' . $next_count . ' editors.'; 
+    $EL_data_trigger = $_GET['EL_data_trigger'];
+     	if (isset($_GET['EL_data_trigger'])){
+     	echo $returnstring; 
+     }
+     	if ($EL_data_trigger == 'true') {
+        //echo 'the values match';
+     	} else {
+     	echo 'error the values dont match'; }
+    exit(); // this is required to return a proper result & exit is faster than die();
+} 
 
 
 
