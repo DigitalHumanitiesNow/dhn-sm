@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Test plugin
-Description: A test plugin to demonstrate wordpress functionality
-Author: Simon Lissack
+Plugin Name: DHNow User Management
+Description: Plugin to manage users in DHNow.
+Author: Amanda Regan
 Version: 0.1
 */
 add_action('admin_menu', 'user_management_menu_page');
