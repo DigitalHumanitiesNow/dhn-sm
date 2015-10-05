@@ -182,7 +182,7 @@ function EL_week_data_callback() {
 		$next_count = 0;
 		$current_count = 0;
 		if ( ! empty( $user_query->results ) ) {
-	
+		$username;
 			foreach ( $user_query->results as $user ) {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->id);
@@ -193,13 +193,24 @@ function EL_week_data_callback() {
 					$next_count = $next_count + 1;
 				} elseif (in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
+					$userinfo = get_userdata($user->id);
+					$user_name = $userinfo->user_login;
+					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
 				}
+			
 			}
 				//return(get_user_meta($user->id, 'last_name'));
 	} //end for each
 	 //endif
 	
-	$returnstring = 'There are ' . $current_count . ' signed up for this week. Last week there were '. $prev_count . 'and next week there are ' . $next_count . ' editors.'; 
+	$returnstring = '<h2>Editor-at-Large Info</h2>
+	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
+
+		<table><th>Name</th><th>Email</th>' . $userlist . '</table>
+
+
+
+	'; 
     $EL_data_trigger = $_GET['EL_data_trigger'];
      	if (isset($_GET['EL_data_trigger'])){
      	echo $returnstring; 
