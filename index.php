@@ -18,6 +18,7 @@ function user_man_page() {
 		<div class="button-container">
 		<button class="instructions_button">Instructional Email</button>
 		</div>';
+	echo '<div class="alerts"></div>';
 }
  
  
@@ -40,7 +41,7 @@ jQuery(document).ready(function($) {
 
         // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         $.get(ajaxurl, data, function(response) {
-            alert('Got this from the server: ' + response);
+            $('.alerts').append("I just appended this content.<br>" + response)
         });
     });
 
