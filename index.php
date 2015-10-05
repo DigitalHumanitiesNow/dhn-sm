@@ -5,6 +5,8 @@ Description: Plugin to manage users in DHNow.
 Author: Amanda Regan
 Version: 0.1
 */
+
+//Calls the function that creates a new menu page -- `user_management_menu_page`. That function then calls user_man_page which generates the content on the page.
 add_action('admin_menu', 'user_management_menu_page');
  
 function user_management_menu_page(){
