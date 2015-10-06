@@ -14,12 +14,19 @@ function user_management_menu_page(){
 }
 
 function user_man_page() {
-	echo '<h1>Admin Page Test</h1>
-		<div class="button-container">
+	echo '<h1>Admin Page Test</h1>';
+	echo '<div class="alerts"></div>';
+	echo '<div class="container">
+
+	<div class="col-md-12 weeksetup"></div>
+
+	</div>';
+	echo '<div class="col-md-6">
+	<button class="btn btn-default">Follow Up Email</button>
+	</div>
+	<div class="col-md-6 button-container">
 		<button class="instructions_button btn btn-default">Instructional Email</button>
 		</div>';
-	echo '<div class="alerts"></div>';
-	echo '<div class="weeksetup"></div>';
 }
  
 //Load up bootstrap for easy layout on admin page
@@ -212,7 +219,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table class="table"><th>Name</th><th>Email</th>' . $userlist . '</table>
+		<table class="table" style="width: 60%;"><th>Name</th><th>Email</th>' . $userlist . '</table>
 
 
 
