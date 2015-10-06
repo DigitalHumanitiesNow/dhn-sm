@@ -123,9 +123,9 @@ if ( ! empty( $user_query->results ) ) {
 		echo '<p>found a user</p><br>';
 		global $usercount;
 		$usercount = $usercount + 1;
-		$allmeta = get_user_meta($user->id);
-		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->id, 'pie_checkbox_3', true) . '<br>';
-		//return(get_user_meta($user->id, 'last_name'));
+		$allmeta = get_user_meta($user->ID);
+		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->ID, 'pie_checkbox_3', true) . '<br>';
+		//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
 
 	} else { 
@@ -191,21 +191,21 @@ function EL_week_data_callback() {
 		$username;
 			foreach ( $user_query->results as $user ) {
 				//echo '<p>found a user</p><br>';
-				$allmeta = get_user_meta($user->id);
-				$checkbox = get_user_meta($user->id, 'pie_checkbox_3', true);
+				$allmeta = get_user_meta($user->ID);
+				$checkbox = get_user_meta($user->ID, 'pie_checkbox_3', true);
 				if (in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
 				} elseif (in_array($next_week, $checkbox)) {
 					$next_count = $next_count + 1;
 				} elseif (in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
-					$userinfo = get_userdata($user->id);
+					$userinfo = get_userdata($user->ID);
 					$user_name = $userinfo->user_login;
 					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
 				}
 			
 			}
-				//return(get_user_meta($user->id, 'last_name'));
+				//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
 	 //endif
 	
