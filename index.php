@@ -219,7 +219,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table class="table" style="width: 60%;"><th>Name</th><th>Email</th>' . $userlist . '</table>
+		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th>' . $userlist . '</table>
 
 
 
