@@ -16,13 +16,19 @@ function user_management_menu_page(){
 function user_man_page() {
 	echo '<h1>Admin Page Test</h1>
 		<div class="button-container">
-		<button class="instructions_button">Instructional Email</button>
+		<button class="instructions_button btn btn-default">Instructional Email</button>
 		</div>';
 	echo '<div class="alerts"></div>';
 	echo '<div class="weeksetup"></div>';
 }
  
- 
+//Load up bootstrap for easy layout on admin page
+function load_custom_wp_admin_style() {
+
+        wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
+        wp_enqueue_style( 'custom_wp_admin_css' );
+}
+add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 //Ajax code adapted from codex and this question on WordPress Development 
 //http://wordpress.stackexchange.com/questions/24235/how-can-i-run-ajax-on-a-button-click-event
@@ -83,11 +89,11 @@ function get_weeks() {
 		global $wpdb;
 
 		// WP_User_Query arguments. Search the database for the values from the pie checkbox.
-		//dhno this value is pie_checkbox_6
+		//dhnow this value is pie_checkbox_6, imac test site 10, laptop 3.
 		$args = array (
 			'meta_query'     => array(
 				array(
-					'key'       => 'pie_checkbox_10',
+					'key'       => 'pie_checkbox_3',
 					
 				),
 			),
@@ -118,7 +124,7 @@ if ( ! empty( $user_query->results ) ) {
 		global $usercount;
 		$usercount = $usercount + 1;
 		$allmeta = get_user_meta($user->id);
-		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->id, 'pie_checkbox_10', true) . '<br>';
+		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->id, 'pie_checkbox_3', true) . '<br>';
 		//return(get_user_meta($user->id, 'last_name'));
 	} //end for each
 
@@ -169,7 +175,7 @@ function EL_week_data_callback() {
      	global $wpdb;
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
-		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_10',),),);
+		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_3',),),);
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
@@ -186,7 +192,7 @@ function EL_week_data_callback() {
 			foreach ( $user_query->results as $user ) {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->id);
-				$checkbox = get_user_meta($user->id, 'pie_checkbox_10', true);
+				$checkbox = get_user_meta($user->id, 'pie_checkbox_3', true);
 				if (in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
 				} elseif (in_array($next_week, $checkbox)) {
@@ -206,7 +212,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table><th>Name</th><th>Email</th>' . $userlist . '</table>
+		<table class="table"><th>Name</th><th>Email</th>' . $userlist . '</table>
 
 
 
