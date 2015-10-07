@@ -22,9 +22,14 @@ function user_man_page() {
 	
 	</div>';
 	echo '<div class="col-md-6">
+	<h2>Instructional Emails</h2>
+	<p>Each week instructional emails get sent to the editors-at-large for the following week.</p>
 	<button class="instructions_button btn btn-default">Instructional Email</button>
+	<div class="instructional_response"></div>
 	</div>
 	<div class="col-md-6 button-container">
+	<h2>Follow-Up Emails</h2>
+	<p>Each week a follow-up email gets sent to the editors-at-large for the previous week.</p>
 		<button class="btn btn-default">Follow Up Email</button>
 		</div>';
 }
@@ -54,7 +59,7 @@ function instructions_action_javascript() { ?>
      
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
-            	$('.alerts').append("I just appended this content.<br>" + response)  }); //end .get
+            	$('.instructional_response').append("I just appended this content.<br>" + response)  }); //end .get
     		}); //end .instructions_button
 		}); 
 	</script>
@@ -72,7 +77,7 @@ function instructions_callback() {
 
      if (isset($_GET['instruction_action_trigger'])){
      	echo get_weeks();
-     	echo output_week_info();
+     	//echo output_week_info();
   		} //end if $_Get[whatever]
 
      if ($instruction_action_trigger == 'true') {
@@ -101,12 +106,21 @@ function get_weeks() {
 		$args = array (
 			'meta_query'     => array(
 				array(
-					'key'       => 'pie_checkbox_3',
+					'key'       => 'pie_checkbox_10',
 					
 				),
 			),
 		);
 
+		$subj_nw = "Editor-at-Large Instructions";
+		
+		$body_nw = "Dear Editors-at-Large,
+		Thank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Saturday through Friday. You may review additional material, but please make sure to cover these particular days.
+		You should have already received an email from our WordPress installation with login information for digitalhumanitiesnow.org. If you don't see it, please check your spam filter first, and then email us if you need your credentials sent again.
+		Detailed instructions for nominating content can be found at http://digitalhumanitiesnow.org/editors-corner/instructions/.
+		Please email us at dhnow@pressforward.org with any questions or concerns during this process.
+		Sincerely,
+		The Editors.";
 
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
 
@@ -120,27 +134,27 @@ function get_weeks() {
 
 
 		// Create an empty array to save emails to.
-		$emails = array();
 
+		global $userdetails;
+		if ( ! empty($user_query->results)) {
+			foreach ($user_query->results as $user) {
+				$allmeta = get_user_meta( $user->ID );
+				$checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
+					if (in_array($next_week, $checkbox)){
+						$userinfo = get_userdata($user->ID);
+						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
+						$emails_nw[] = $userinfo->user_email;
+					}
+			} //end foreach
+			wp_mail( $emails_nw, $subj_nw, $body_nw);
+		}//end if
 
-
-// The User Loop
-if ( ! empty( $user_query->results ) ) {
+		echo '<br>Emails were sent to: <br>
+		<table class="table table-striped">' . $userdetails . '</table>';
 	
-	foreach ( $user_query->results as $user ) {
-		echo '<p>found a user</p><br>';
-		global $usercount;
-		$usercount = $usercount + 1;
-		$allmeta = get_user_meta($user->ID);
-		$checkbox = '<strong>user checkbox data:</strong> ' . get_user_meta($user->ID, 'pie_checkbox_3', true) . '<br>';
-		//return(get_user_meta($user->ID, 'last_name'));
-	} //end for each
-
-	} else { 
-		echo 'didnt finda  user';
+		//unset($userdetails);
+		//unset($emails_nw);
 	}
-	
-} //end get weeks
 
 
 /******
@@ -177,13 +191,10 @@ add_action('wp_ajax_EL_week_data', 'EL_week_data_callback');
 
 function EL_week_data_callback() {
      global $wpdb; // this is how you get access to the database
-
-     
-
-     	global $wpdb;
+   		$userlist = '';
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
-		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_3',),),);
+		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_10',),),);
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
@@ -200,12 +211,12 @@ function EL_week_data_callback() {
 			foreach ( $user_query->results as $user ) {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
-				$checkbox = get_user_meta($user->ID, 'pie_checkbox_3', true);
+				$checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
 				if (in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
-				} elseif (in_array($next_week, $checkbox)) {
+				} if (in_array($next_week, $checkbox)) {
 					$next_count = $next_count + 1;
-				} elseif (in_array($current_week, $checkbox)) {
+				} if (in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
 					$user_name = $userinfo->user_login;
@@ -216,7 +227,7 @@ function EL_week_data_callback() {
 				//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
 	 //endif
-	
+	wp_reset_query();
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
@@ -225,6 +236,7 @@ function EL_week_data_callback() {
 
 
 	'; 
+
     $EL_data_trigger = $_GET['EL_data_trigger'];
      	if (isset($_GET['EL_data_trigger'])){
      	echo $returnstring; 
@@ -233,6 +245,11 @@ function EL_week_data_callback() {
         //echo 'the values match';
      	} else {
      	echo 'error the values dont match'; }
+    
+
+		$prev_count = 0;
+		$next_count = 0;
+		$current_count = 0;
     exit(); // this is required to return a proper result & exit is faster than die();
 } 
 
