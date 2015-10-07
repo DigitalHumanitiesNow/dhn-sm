@@ -32,6 +32,15 @@ function user_man_page() {
 	<p>Each week a follow-up email gets sent to the editors-at-large for the previous week.</p>
 		<button class="btn btn-default">Follow Up Email</button>
 		</div>';
+	
+
+	echo '<div class="row">
+
+	<div class="log col-md-12">
+	<button class="btn btn-default">View Action History</button>
+	
+	</div>';
+	echo	'</div>'; //close container
 }
  
 //Load up bootstrap for easy layout on admin page
@@ -49,9 +58,9 @@ function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 	$current = file_get_contents($file);
-	echo $current;
 	$current .= $message;
 	file_put_contents($file, $current);
+	//echo '<ul>' . file_get_contents($file) . '</ul>';
 
 }
 
@@ -168,7 +177,10 @@ function get_weeks() {
 
 		echo '<br>Emails were sent to: <br>
 		<table class="table table-striped">' . $userdetails . '</table>';
-	
+		$logemails = implode(" ,", $emails_nw);
+		$logmessage = '<li>' . date(DATE_RSS) . ' sent the instructional email to: ' .  $logemails . '</li>';
+		dhn_sm_log($logmessage);
+
 		//unset($userdetails);
 		//unset($emails_nw);
 	}
@@ -189,7 +201,7 @@ function EL_Info_Generator() { ?>
     		
         		var data = {
             		'action': 'EL_week_data',
-            		'EL_data_trigger': true
+            		'EL_data_trigger': true,
             	};
      
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -198,6 +210,7 @@ function EL_Info_Generator() { ?>
         		console.log('test');
             	$('.weeksetup').append(response)  }); //end .get
     		}); //end .instructions_button
+			
 		
 	</script>
 <?php } //end instructions_action_javascript
@@ -205,6 +218,12 @@ function EL_Info_Generator() { ?>
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
 add_action('wp_ajax_EL_week_data', 'EL_week_data_callback');
+//need to append this to an ajax button
+function Log_callback() {
+	$file = 'sm_log.txt';
+	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
+	$logcontents = '<ul>' . file_get_contents($file) . '</ul>';
+}
 
 function EL_week_data_callback() {
      global $wpdb; // this is how you get access to the database
@@ -261,12 +280,14 @@ function EL_week_data_callback() {
      	} else {
      	echo 'error the values dont match'; }
     
-    dhn_sm_log('testings', false);
 
 		$prev_count = 0;
 		$next_count = 0;
 		$current_count = 0;
-    exit(); // this is required to return a proper result & exit is faster than die();
+    exit(); 
+
+
+    // this is required to return a proper result & exit is faster than die();
 } 
 
 
