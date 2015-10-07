@@ -59,7 +59,7 @@ function instructions_action_javascript() { ?>
      
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
-            	$('.instructional_response').append("I just appended this content.<br>" + response)  }); //end .get
+            	$('.instructional_response').append(response)  }); //end .get
     		}); //end .instructions_button
 		}); 
 	</script>
@@ -81,10 +81,12 @@ function instructions_callback() {
   		} //end if $_Get[whatever]
 
      if ($instruction_action_trigger == 'true') {
-
-             echo 'the values match';
+     	$output = "<script>console.log('There was not an error calling the instructional email function.');</script>";
+     	 echo $output;
+     
      } else {
-     	echo 'error the values dont match';
+     	 $output = "<script>console.log('There was an error');</script>";
+     	 echo $output;
      }
 
      exit(); // this is required to return a proper result & exit is faster than die();
