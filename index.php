@@ -43,6 +43,21 @@ wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/boots
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
+
+//log function. This function accepts two arguments: 1. message: the text to copy into the log. 2. a reset variable that if set to true will wipe the log. This currently doesn't do anything but eventually we'll want to have a reset log button in the dashboard. 
+function dhn_sm_log($message = '', $reset = false) {
+	$file = 'sm_log.txt';
+	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
+	$current = file_get_contents($file);
+	echo $current;
+	$current .= $message;
+	file_put_contents($file, $current);
+
+}
+
+
+
+
 //Ajax code adapted from codex and this question on WordPress Development 
 //http://wordpress.stackexchange.com/questions/24235/how-can-i-run-ajax-on-a-button-click-event
 
@@ -235,8 +250,6 @@ function EL_week_data_callback() {
 
 		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th>' . $userlist . '</table>
 
-
-
 	'; 
 
     $EL_data_trigger = $_GET['EL_data_trigger'];
@@ -248,6 +261,7 @@ function EL_week_data_callback() {
      	} else {
      	echo 'error the values dont match'; }
     
+    dhn_sm_log('testings', false);
 
 		$prev_count = 0;
 		$next_count = 0;
