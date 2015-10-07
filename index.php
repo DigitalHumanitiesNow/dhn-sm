@@ -14,25 +14,26 @@ function user_management_menu_page(){
 }
 
 function user_man_page() {
-	echo '<h1>Admin Page Test</h1>';
-	echo '<div class="alerts"></div>';
 	echo '<div class="container">
-
-	<div class="col-md-12 weeksetup"></div>
-
+	<div class="col-md-12">
+	<h1>Admin Page Test</h1>
+	</div>
+	<div class="col-md-8 weeksetup"></div>
+	
 	</div>';
 	echo '<div class="col-md-6">
-	<button class="btn btn-default">Follow Up Email</button>
+	<button class="instructions_button btn btn-default">Instructional Email</button>
 	</div>
 	<div class="col-md-6 button-container">
-		<button class="instructions_button btn btn-default">Instructional Email</button>
+		<button class="btn btn-default">Follow Up Email</button>
 		</div>';
 }
  
 //Load up bootstrap for easy layout on admin page
 function load_custom_wp_admin_style() {
 
-        wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
+        // wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
+wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', false, '1.0.0' );
         wp_enqueue_style( 'custom_wp_admin_css' );
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
@@ -83,14 +84,14 @@ function instructions_callback() {
 
      exit(); // this is required to return a proper result & exit is faster than die();
 }
-function output_week_info() {
-	$current_week = date("W");
-	$current_year = date("Y");
-	$date = new DateTime();
-	$date->setISODate($current_year,$current_week);
-	$EL_Start_date = $date->format('d-M-Y');
-	return $EL_Start_date;
-}
+// function output_week_info() {
+// 	$current_week = date("W");
+// 	$current_year = date("Y");
+// 	$date = new DateTime();
+// 	$date->setISODate($current_year,$current_week);
+// 	$EL_Start_date = $date->format('d-M-Y');
+// 	return $EL_Start_date;
+// }
 
 function get_weeks() {
 		global $wpdb;
