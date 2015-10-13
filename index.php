@@ -14,33 +14,48 @@ function user_management_menu_page(){
 }
 
 function user_man_page() {
-	echo '<div class="container">
-	<div class="col-md-12">
-	<h1>Admin Page Test</h1>
+echo '<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+				<h1>Admin Page Test</h1>
+		</div>
 	</div>
-	<div class="col-md-8 weeksetup"></div>
 	
-	</div>';
-	echo '<div class="col-md-6">
-	<h2>Instructional Emails</h2>
-	<p>Each week instructional emails get sent to the editors-at-large for the following week.</p>
-	<button class="instructions_button btn btn-default">Instructional Email</button>
-	<div class="instructional_response"></div>
+	<div class="row">
+		<div class="col-md-8 weeksetup"></div>
 	</div>
-	<div class="col-md-6 button-container">
-	<h2>Follow-Up Emails</h2>
-	<p>Each week a follow-up email gets sent to the editors-at-large for the previous week.</p>
-		<button class="btn btn-default">Follow Up Email</button>
-		</div>';
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<h2>Instructional Emails</h2>
+			<p>Each week instructional emails get sent to the editors-at-large for the following week.</p>
+		
+			<button class="instructions_button btn btn-default">Instructional Email</button>
+
+			<div class="instructional_response"></div>
+		</div>
+		
+		<div class="col-md-6 button-container">
+			<h2>Follow-Up Emails</h2>
+			<p>Each week a follow-up email gets sent to the editors-at-large for the previous week.</p>
+			
+			<button class="btn btn-default">Follow Up Email</button>
+		</div>
+
+	</div>	
 	
 
-	echo '<div class="row">
+	<div class="row">
 
-	<div class="log col-md-12">
-	<button class="btn btn-default">View Action History</button>
-	
-	</div>';
-	echo	'</div>'; //close container
+		<div class="log col-md-12">
+			<button class="logbutton btn btn-default">View Action History</button>
+		</div>
+		<div class="actionhistory col-md-12"></div>
+
+	</div>
+
+</div>';
 }
  
 //Load up bootstrap for easy layout on admin page
@@ -54,6 +69,7 @@ add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 
 //log function. This function accepts two arguments: 1. message: the text to copy into the log. 2. a reset variable that if set to true will wipe the log. This currently doesn't do anything but eventually we'll want to have a reset log button in the dashboard. 
+
 function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
@@ -105,11 +121,10 @@ function instructions_callback() {
   		} //end if $_Get[whatever]
 
      if ($instruction_action_trigger == 'true') {
-     	$output = "<script>console.log('There was not an error calling the instructional email function.');</script>";
-     	 echo $output;
+     	$output = "success";
      
      } else {
-     	 $output = "<script>console.log('There was an error');</script>";
+     	$output = "<script>console.log('There was not an error calling the instructional email function.');</script>";
      	 echo $output;
      }
 
@@ -219,11 +234,7 @@ function EL_Info_Generator() { ?>
 
 add_action('wp_ajax_EL_week_data', 'EL_week_data_callback');
 //need to append this to an ajax button
-function Log_callback() {
-	$file = 'sm_log.txt';
-	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
-	$logcontents = '<ul>' . file_get_contents($file) . '</ul>';
-}
+
 
 function EL_week_data_callback() {
      global $wpdb; // this is how you get access to the database
@@ -289,6 +300,61 @@ function EL_week_data_callback() {
 
     // this is required to return a proper result & exit is faster than die();
 } 
+/****************
+LOG FUNCTIONS
+*////////////////
+add_action('admin_footer', 'EL_Log_Generator');
+
+function EL_Log_Generator() { ?>
+	<script type="text/javascript" >
+		
+		jQuery(document).ready(function($) {
+
+    		$('.logbutton').click(function(){
+    		
+        		var data = {
+            		'action': 'EL_log_data',
+            		'EL_displaylog_trigger': true,
+            	};
+     
+        	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        	$.get(ajaxurl, data, function(response) {
+        		//alert('test');
+        		console.log('the actionhistory button has been clicked.');
+            	$('.actionhistory').append(response);  }); 
+    		})
+    		}); 
+			
+		
+	</script>
+<?php }
+
+add_action('wp_ajax_EL_log_data', 'Log_callback');
+//need to append this to an ajax button
+function tailFile($file, $lines = 1) {
+		$logcontents = trim(implode("", array_slice(file($file), -$lines)));
+		return $logcontents;
+	}
+function Log_callback() {
+	$file = 'sm_log.txt';
+	
+
+	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
+	
+	$logcontents = '<ul>' . file_get_contents($file) . '</ul>';
+
+	$EL_data_trigger = $_GET['EL_displaylog_trigger'];
+     	if (isset($_GET['EL_displaylog_trigger'])){
+     	echo $logcontents; 
+     }
+     	if ($EL_data_trigger == 'true') {
+        //echo 'the values match';
+     	} else {
+     	echo 'error the values dont match'; }
+    
+    exit(); 
+}
+
 
 
 
