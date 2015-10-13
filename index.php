@@ -13,6 +13,7 @@ function user_management_menu_page(){
         add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'custompage', 'user_man_page' );
 }
 
+
 function user_man_page() {
 echo '<div class="container">
 	<div class="row">
@@ -49,9 +50,9 @@ echo '<div class="container">
 	<div class="row">
 
 		<div class="log col-md-12">
-			<button class="logbutton btn btn-default">View Action History</button>
+			<button class="logbutton btn btn-primary">View Action History</button>
 		</div>
-		<div class="actionhistory col-md-12"></div>
+		<div class="actionhistory"></div>
 
 	</div>
 
@@ -64,7 +65,10 @@ function load_custom_wp_admin_style() {
         // wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
 wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', false, '1.0.0' );
         wp_enqueue_style( 'custom_wp_admin_css' );
+wp_register_script( 'button_bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js');
+wp_enqueue_scripts('button_bootstrap_js');
 }
+
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 
@@ -74,10 +78,9 @@ function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 	$current = file_get_contents($file);
-	$current .= $message;
+	$current .= $message . PHP_EOL;
 	file_put_contents($file, $current);
 	//echo '<ul>' . file_get_contents($file) . '</ul>';
-
 }
 
 
@@ -340,9 +343,12 @@ function Log_callback() {
 	
 
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
-	
-	$logcontents = '<ul>' . file_get_contents($file) . '</ul>';
+	$data = file($file);
+	$lines = implode("\r\n",array_slice($data,count($data)-25,25));
 
+
+	$logcontents = '<ul>' . $lines . '</ul>';
+	
 	$EL_data_trigger = $_GET['EL_displaylog_trigger'];
      	if (isset($_GET['EL_displaylog_trigger'])){
      	echo $logcontents; 
@@ -355,7 +361,9 @@ function Log_callback() {
     exit(); 
 }
 
-
+$testfile = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
+$testlines = count(file($testfile));
+echo '<script>console.log(' . $testlines . ');</script>'
 
 
 ?>
