@@ -1,6 +1,7 @@
 <?php
 
-
+global $dbfield ;
+$dbfield = 'pie_checkbox_6';
 function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
@@ -58,7 +59,7 @@ function EL_week_data_callback() {
    		$userlist = '';
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
-		$args = array ('meta_query'=> array(array('key'=>'pie_checkbox_10',),),);
+		$args = array ('meta_query'=> array(array('key'=>$dbfield,),),);
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
@@ -75,7 +76,7 @@ function EL_week_data_callback() {
 			foreach ( $user_query->results as $user ) {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
-				$checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
+				$checkbox = get_user_meta($user->ID, $dbfield , true);
 				if (in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
 				} if (in_array($next_week, $checkbox)) {

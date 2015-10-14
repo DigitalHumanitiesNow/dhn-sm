@@ -1,5 +1,5 @@
 <?php
-
+global $dbfield;
 function instructions_callback() {
      global $wpdb; // this is how you get access to the database
 
@@ -31,7 +31,7 @@ function send_instructions() {
 		$args = array (
 			'meta_query'     => array(
 				array(
-					'key'       => 'pie_checkbox_10',
+					'key'       => $dbfield,
 					
 				),
 			),
@@ -64,7 +64,7 @@ function send_instructions() {
 		if ( ! empty($user_query->results)) {
 			foreach ($user_query->results as $user) {
 				$allmeta = get_user_meta( $user->ID );
-				$checkbox = get_user_meta($user->ID, 'pie_checkbox_10', true);
+				$checkbox = get_user_meta($user->ID, $dbfield, true);
 					if (in_array($next_week, $checkbox)){
 						$userinfo = get_userdata($user->ID);
 						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
