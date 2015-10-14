@@ -68,11 +68,11 @@ function send_instructions() {
 					if (in_array($next_week, $checkbox)){
 						$userinfo = get_userdata($user->ID);
 						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
-						$headers[] = "'Bcc:" . $userinfo->user_email . "'";
+						$headers[] .= "Bcc:" . $userinfo->user_email;
 						$emails_nw[] = $userinfo->user_email;
 					}
 			} //end foreach
-			$headers[] = 'From: Digital Humanities Now <dhnow@pressforward.org>';
+			$headers[] .= 'From: Digital Humanities Now <dhnow@pressforward.org>';
 			wp_mail( $subj_nw, $body_nw, $headers);
 		}//end if
 		$weekstart = new DateTime();
