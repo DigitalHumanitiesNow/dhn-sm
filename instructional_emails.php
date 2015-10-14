@@ -68,7 +68,7 @@ function send_instructions() {
 					if (in_array($next_week, $checkbox)){
 						$userinfo = get_userdata($user->ID);
 						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
-						$headers[] = 'Bcc:' . $userinfo->display_name . '<' . $userinfo->user_email . '>';
+						$headers[] = 'Bcc:' . $userinfo->display_name . ' <' . $userinfo->user_email . '>';
 						$emails_nw[] = $userinfo->user_email;
 					}
 			} //end foreach
@@ -79,7 +79,7 @@ function send_instructions() {
 		$weekstart = new DateTime();
 		$weekstart->setISODate(2015, $next_week);
 		 
-		echo implode($headers) . '<div style="margin-top: 10px;" class="alert alert-success" role="alert">The instructional emails for the week of ' . $weekstart->format('d-M-Y') . ' were sent successfully.</div>' .
+		echo '<div style="margin-top: 10px;" class="alert alert-success" role="alert">The instructional emails for the week of ' . $weekstart->format('d-M-Y') . ' were sent successfully.</div>' .
 		'<br>Emails were sent to: <br>
 		<table class="table table-striped">' . $userdetails . '</table>';
 		$logemails = implode(" ,", $emails_nw);
