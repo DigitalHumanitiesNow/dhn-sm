@@ -68,7 +68,7 @@ function send_instructions() {
 					if (in_array($next_week, $checkbox)){
 						$userinfo = get_userdata($user->ID);
 						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
-						$headers[] = "Cc: '" . $userinfo->user_email . "'; ";
+						$headers[] = 'Bcc: Amanda Regan <regan008@cougars.csusm.edu>';
 						$emails_nw[] = $userinfo->user_email;
 					}
 			} //end foreach
