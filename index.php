@@ -47,12 +47,13 @@ echo '<div class="container">
 	</div>	
 	
 
-	<div class="row">
+	<div class="row" style="margin-top: 30px;">
 
 		<div class="log col-md-12">
 			<button class="logbutton btn btn-primary">View Action History</button>
+			<div class="actionhistory"></div>
 		</div>
-		<div class="actionhistory"></div>
+		
 
 	</div>
 
