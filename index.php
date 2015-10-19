@@ -41,7 +41,8 @@ echo '<div class="container">
 			<h2>Follow-Up Emails</h2>
 			<p>Each week a follow-up email gets sent to the editors-at-large for the previous week.</p>
 			
-			<button class="btn btn-default">Follow Up Email</button>
+			<button class="followup_button btn btn-default">Follow Up Email</button>
+			<div class="followup_response"></div>
 		</div>
 
 	</div>	
@@ -108,6 +109,34 @@ function instructions_action_javascript() { ?>
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
 add_action('wp_ajax_instructional_email', 'instructions_callback');
+
+add_action('admin_head', 'followup_action_javascript');
+function followup_action_javascript() { ?>
+	<script type="text/javascript" >
+		jQuery(document).ready(function($) {
+
+    		$('.followup_button').click(function(){
+        		var data = {
+            		action: 'followup_email',
+            		followup_action_trigger: true };
+            	 $('.followup_button').attr('disabled','disabled');
+     
+        	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        	$.get(ajaxurl, data, function(response) {
+            	$('.followup_response').append(response)  }); //end .get
+    		}); //end .instructions_button
+		}); 
+	</script>
+<?php } //end instructions_action_javascript
+
+//The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+
+add_action('wp_ajax_followup_email', 'followup_callback');
+
+
+
+
+
 
 
 /******

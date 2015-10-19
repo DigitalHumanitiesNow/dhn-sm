@@ -1,6 +1,6 @@
 <?php
 
-$dbfield = 'pie_checkbox_6';
+$dbfield = 'pie_checkbox_10';
 function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
@@ -109,9 +109,9 @@ function EL_week_data_callback() {
      	echo 'error the values dont match'; }
     
 
-		$prev_count = 0;
-		$next_count = 0;
-		$current_count = 0;
+		// $prev_count = 0;
+		// $next_count = 0;
+		// $current_count = 0;
     exit(); 
 
 
@@ -137,7 +137,9 @@ function EL_Log_Generator() { ?>
         	$.get(ajaxurl, data, function(response) {
         		//alert('test');
         		console.log('the actionhistory button has been clicked.');
-            	$('.actionhistory').append(response);  }); 
+            	$('.actionhistory').append('<h3>Action History</h3>')
+            	$('.actionhistory').append(response);
+            	  }); 
     		})
     		}); 
 			
