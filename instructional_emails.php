@@ -78,14 +78,18 @@ function send_instructions() {
 		}//end if
 		$weekstart = new DateTime();
 		$weekstart->setISODate(2015, $next_week);
-		 
+		if( empty( $emails_nw ) ) {
+		echo '<div style="margin-top: 10px;" class="alert alert-danger" role="alert">The instructional emails for the week of ' . $weekstart->format('d-M-Y') . ' were not sent successfully. There are no users registered.</div>';
+		$failurelogmsg = '<li>' . date(DATE_RSS) . ' An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li>';
+		dhn_sm_log($failurelogmsg);
+		} else {
 		echo '<div style="margin-top: 10px;" class="alert alert-success" role="alert">The instructional emails for the week of ' . $weekstart->format('d-M-Y') . ' were sent successfully.</div>' .
 		'<br>Emails were sent to: <br>
 		<table class="table table-striped">' . $userdetails . '</table>';
 		$logemails = implode(" ,", $emails_nw);
 		$logmessage = '<li>' . date(DATE_RSS) . ' sent the instructional email to: ' .  $logemails . '</li>';
 		dhn_sm_log($logmessage);
-
+		}
 		//unset($userdetails);
 		//unset($emails_nw);
 	}
