@@ -78,7 +78,7 @@ function send_followup() {
 		$weekstart = new DateTime();
 		$weekstart->setISODate(2015, $prev_week);
 		if( empty( $emails_pw ) ) {
-		echo '<div style="margin-top: 10px;" class="alert alert-danger" role="alert">The follow up emails for the week of ' . $weekstart->format('d-M-Y') . ' were not sent successfully. There are no users registered.</div>';
+		echo '<div style="margin-top: 10px;" class="alert alert-danger" role="alert">The follow up emails for the week of ' . $weekstart->format('d-M-Y') . ' were not sent. There are no users registered.</div>';
 		$failurelogmsg = '<li>' . date(DATE_RSS) . ' An attempt was made to send the follow up emails but there are no users signed up. Emails did not send.</li>';
 		dhn_sm_log($failurelogmsg);
 		} else {

@@ -1,1 +1,10 @@
 <li>Mon, 19 Oct 2015 19:31:35 +0000 The log file has been automatically reset.</li><li>Mon, 19 Oct 2015 19:31:52 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li>
+<li>Tue, 20 Oct 2015 13:58:00 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 13:59:54 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:04:22 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:04:53 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:05:20 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:05:44 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:06:27 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:07:23 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>
+<li>Tue, 20 Oct 2015 14:08:04 +0000 sent the follow up email to: regan008@csusm.edu ,ah@test.com ,gww@test.com ,jss@test.com ,ntw@test.com ,aregan2@gmu.edu</li>

@@ -46,6 +46,7 @@ $testlines = count(file($testfile));
 echo '<script>console.log(' . $testlines . ');</script>';
 
 function reset_log() {
+	$current_week = date("W");
 	if ($current_week = 16 || 33 || 53) {
 		$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 		$cleared_message = '<li>' . date(DATE_RSS) . ' The log file has been automatically reset.</li>';
