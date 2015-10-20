@@ -50,7 +50,7 @@ function send_followup() {
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
-		
+		echo '<script>console.log(' . $prev_week . ');</script>';
 
 		// Query users based on the above arguments
 		$user_query = new WP_User_Query( $args );
@@ -70,6 +70,7 @@ function send_followup() {
 						$emails_pw[] = $userinfo->user_email;
 					}
 			} //end foreach
+			
 			$headers[] .= 'From: Digital Humanities Now <dhnow@pressforward.org>';
 			$to = 'dhnow@pressforward.org';
 			wp_mail($to, $subj_pw, $body_pw, $headers);
