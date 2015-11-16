@@ -88,7 +88,7 @@ require_once(WP_PLUGIN_DIR . '/dhn-sm/followup_emails.php');
 
 add_action('admin_head', 'instructions_action_javascript');
 
-function instructions_action_javascript() { ?>
+function instructions_action_javascript() {  ?>
 	<script type="text/javascript" >
 		jQuery(document).ready(function($) {
 
@@ -100,10 +100,12 @@ function instructions_action_javascript() { ?>
      
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
+        		console.log("instructional function executed");
             	$('.instructional_response').append(response)  }); //end .get
     		}); //end .instructions_button
 		}); 
 	</script>
+
 <?php } //end instructions_action_javascript
 
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
@@ -123,6 +125,7 @@ function followup_action_javascript() { ?>
      
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
+        		console.log('followup function executed');
             	$('.followup_response').append(response)  }); //end .get
     		}); //end .instructions_button
 		}); 
@@ -147,7 +150,10 @@ Generate EL Info Functions
 
 add_action('admin_footer', 'EL_Info_Generator');
 
-function EL_Info_Generator() { ?>
+function EL_Info_Generator() { 
+
+	if(is_admin() && ( $_GET['page'] == 'custompage')) {
+	?>
 	<script type="text/javascript" >
 		jQuery(document).ready(function($) {
 
@@ -160,13 +166,13 @@ function EL_Info_Generator() { ?>
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
         		//alert('test');
-        		console.log('test');
+        		console.log('week data function loaded');
             	$('.weeksetup').append(response)  }); //end .get
     		}); //end .instructions_button
 			
 		
 	</script>
-<?php } //end instructions_action_javascript
+<?php } } //end instructions_action_javascript
 
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
