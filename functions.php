@@ -41,9 +41,9 @@ function Log_callback() {
     exit(); 
 }
 
-$testfile = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
-$testlines = count(file($testfile));
-echo '<script>console.log(' . $testlines . ');</script>';
+//$testfile = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
+//$testlines = count(file($testfile));
+//echo '<script>console.log(' . $testlines . ');</script>';
 
 function reset_log() {
 	$current_week = date("W");
