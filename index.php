@@ -10,7 +10,8 @@ Version: 0.1
 add_action('admin_menu', 'user_management_menu_page');
  
 function user_management_menu_page(){
-        add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'custompage', 'user_man_page' );
+       global $dhn_sm_page;
+       $dhn_sm_page = add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'custompage', 'user_man_page' );
 }
 
 
@@ -151,8 +152,9 @@ Generate EL Info Functions
 add_action('admin_footer', 'EL_Info_Generator');
 
 function EL_Info_Generator() { 
-
-	if(is_admin() && ( $_GET['page'] == 'custompage')) {
+	global $dhn_sm_page;
+	$screen = get_current_screen();
+	if($screen->id == $dhn_sm_page) {
 	?>
 	<script type="text/javascript" >
 		jQuery(document).ready(function($) {
