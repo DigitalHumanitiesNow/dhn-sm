@@ -80,7 +80,6 @@ add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 require_once(WP_PLUGIN_DIR . '/dhn-sm/functions.php');
 require_once(WP_PLUGIN_DIR . '/dhn-sm/instructional_emails.php');
 require_once(WP_PLUGIN_DIR . '/dhn-sm/followup_emails.php');
-//log function. This function accepts two arguments: 1. message: the text to copy into the log. 2. a reset variable that if set to true will wipe the log. This currently doesn't do anything but eventually we'll want to have a reset log button in the dashboard. 
 
 
 

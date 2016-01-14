@@ -47,7 +47,7 @@ function Log_callback() {
 
 function reset_log() {
 	$current_week = date("W");
-	if ($current_week = 16 || 33 || 53) {
+	if ($current_week == 16 || 33 || 53) {
 		$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 		$cleared_message = '<li>' . date(DATE_RSS) . ' The log file has been automatically reset.</li>';
 		file_put_contents($file, $cleared_message);
