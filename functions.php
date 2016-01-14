@@ -1,6 +1,10 @@
 <?php
 
-$db_pie_field = 'pie_checkbox_10';
+
+
+$options = get_option('dhnsm_settings'); 
+$db_pie_field = $options['dhnsm_text_field_0'];
+
 function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
@@ -150,6 +154,129 @@ function EL_Log_Generator() { ?>
 
 add_action('wp_ajax_EL_log_data', 'Log_callback');
 //need to append this to an ajax button
+
+/* ------------------------------------------------------------------------ *
+ * Setting Registration
+ * ------------------------------------------------------------------------ */
+//to get value do: 
+//$options = get_option('dhnsm_settings'); 
+//echo $options['dhnsm_text_field_0'];
+add_action( 'admin_menu', 'dhnsm_add_admin_menu' );
+add_action( 'admin_init', 'dhnsm_settings_init' );
+
+
+function dhnsm_add_admin_menu(  ) { 
+
+	add_submenu_page( 'dhn-usermanagement', 'DHNow User Management Plugin Settings', 'Settings', 'manage_options', 'dhn-sm', 'dhnsm_options_page' );
+
+}
+
+
+function dhnsm_settings_init(  ) { 
+
+	register_setting( 'pluginPage', 'dhnsm_settings' );
+
+	add_settings_section(
+		'dhnsm_pluginPage_section', 
+		__( '', 'wordpress' ), 
+		'dhnsm_settings_section_callback', 
+		'pluginPage'
+	);
+
+	add_settings_field( 
+		'dhnsm_text_field_0', 
+		__( 'Database Field Name', 'wordpress' ), 
+		'dhnsm_text_field_0_render', 
+		'pluginPage', 
+		'dhnsm_pluginPage_section' 
+	);
+
+
+}
+
+
+function dhnsm_text_field_0_render(  ) { 
+
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_text_field_0]' value='<?php echo $options['dhnsm_text_field_0']; ?>'>
+	<?php
+
+}
+
+
+function dhnsm_settings_section_callback(  ) { 
+
+	echo __( '', 'wordpress' );
+
+}
+
+
+function dhnsm_options_page(  ) { 
+
+	?>
+	<form action='options.php' method='post'>
+		
+		<h1>Digital Humanities Now User Management</h1>
+		<h2>Plugin Settings</h2>
+		
+		<?php
+		settings_fields( 'pluginPage' );
+		do_settings_sections( 'pluginPage' );
+		submit_button();
+		?>
+		
+	</form>
+	<?php
+
+}
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

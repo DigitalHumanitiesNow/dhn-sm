@@ -12,6 +12,7 @@ add_action('admin_menu', 'user_management_menu_page');
 function user_management_menu_page(){
        global $dhn_sm_page;
        $dhn_sm_page = add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'dhn-usermanagement', 'user_man_page' );
+
 }
 
 
