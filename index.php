@@ -66,8 +66,8 @@ echo '<div class="container">
 function load_custom_wp_admin_style() {
 
         // wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
-wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css', false, '1.0.0' );
-        wp_enqueue_style( 'custom_wp_admin_css' );
+//wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css', false, '1.0.0' );
+        //wp_enqueue_style( 'custom_wp_admin_css' );
 //wp_register_script( 'button_bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', false, '1.0.0');
 //wp_enqueue_scripts('button_bootstrap_js');
 }
@@ -89,7 +89,12 @@ require_once(WP_PLUGIN_DIR . '/dhn-sm/followup_emails.php');
 
 add_action('admin_head', 'instructions_action_javascript');
 
-function instructions_action_javascript() {  ?>
+function instructions_action_javascript() {  
+	global $dhn_sm_page;
+	$screen = get_current_screen();
+	if($screen->id == $dhn_sm_page) {
+	?>
+
 	<script type="text/javascript" >
 		jQuery(document).ready(function($) {
 
@@ -107,14 +112,19 @@ function instructions_action_javascript() {  ?>
 		}); 
 	</script>
 
-<?php } //end instructions_action_javascript
+<?php } } //end instructions_action_javascript
 
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
 add_action('wp_ajax_instructional_email', 'instructions_callback');
 
 add_action('admin_head', 'followup_action_javascript');
-function followup_action_javascript() { ?>
+function followup_action_javascript() { 
+	global $dhn_sm_page;
+	$screen = get_current_screen();
+	if($screen->id == $dhn_sm_page) {
+	?>
+
 	<script type="text/javascript" >
 		jQuery(document).ready(function($) {
 
@@ -131,7 +141,7 @@ function followup_action_javascript() { ?>
     		}); //end .instructions_button
 		}); 
 	</script>
-<?php } //end instructions_action_javascript
+<?php } }//end instructions_action_javascript
 
 //The first part of this add_action, 'wp_ajax_instructional_email' calls the action defined in the data varaibale in instructions_action_javascript above. See https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
 
