@@ -64,13 +64,16 @@ echo '<div class="container">
  
 //Load up bootstrap for easy layout on admin page
 function load_custom_wp_admin_style() {
+global $dhn_sm_page;
+	$screen = get_current_screen();
+	if($screen->id == $dhn_sm_page) {
 
-        // wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
-//wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css', false, '1.0.0' );
-        //wp_enqueue_style( 'custom_wp_admin_css' );
+        //wp_register_style( 'custom_wp_admin_css', plugin_dir_url(__FILE__) . 'css/bootstrap.min.css', false, '1.0.0' );
+wp_register_style( 'custom_wp_admin_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css', false, '1.0.0' );
+wp_enqueue_style( 'custom_wp_admin_css' );
 //wp_register_script( 'button_bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', false, '1.0.0');
 //wp_enqueue_scripts('button_bootstrap_js');
-}
+} }
 
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
