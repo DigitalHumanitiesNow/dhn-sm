@@ -63,7 +63,7 @@ function send_followup() {
 			foreach ($user_query->results as $user) {
 				$allmeta = get_user_meta( $user->ID );
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'], true);
-					if (in_array($prev_week, $checkbox)){
+					if (is_array($checkbox) && in_array($prev_week, $checkbox)){
 						$userinfo = get_userdata($user->ID);
 						$userdetails .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
 						$headers[] = 'Bcc:' . $userinfo->display_name . ' <' . $userinfo->user_email . '>';
