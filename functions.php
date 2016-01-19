@@ -81,11 +81,11 @@ function EL_week_data_callback() {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
-				if (in_array($prev_week, $checkbox)) {
+				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
-				} if (in_array($next_week, $checkbox)) {
+				} if (is_array($checkbox) && in_array($next_week, $checkbox)) {
 					$next_count = $next_count + 1;
-				} if (in_array($current_week, $checkbox)) {
+				} if (is_array($checkbox) && in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
 					$user_name = $userinfo->user_login;
