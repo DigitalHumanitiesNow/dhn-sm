@@ -1,1 +1,1 @@
-<li>Thu, 14 Jan 2016 15:36:11 +0000 The log file has been automatically reset.</li><li>Thu, 14 Jan 2016 15:36:12 +0000 An attempt was made to send the follow up emails but there are no users signed up. Emails did not send.</li>
+<li>Tue, 19 Jan 2016 17:38:10 +0000 The log file has been automatically reset.</li>

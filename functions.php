@@ -51,7 +51,7 @@ function Log_callback() {
 
 function reset_log() {
 	$current_week = date("W");
-	if ($current_week == 16 || 33 || 53) {
+	if ($current_week == 16 || $current_week == 33 || $current_week == 53) {
 		$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 		$cleared_message = '<li>' . date(DATE_RSS) . ' The log file has been automatically reset.</li>';
 		file_put_contents($file, $cleared_message);
@@ -96,7 +96,7 @@ function EL_week_data_callback() {
 				//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
 	 //endif
-	wp_reset_query();
+	
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
