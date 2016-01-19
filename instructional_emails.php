@@ -39,8 +39,8 @@ function send_instructions() {
 
 		$subj_nw = "Editor-at-Large Instructions";
 		
-		$body_nw = "Dear Editors-at-Large,<br>
-		<p>Thank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Saturday through Friday. You may review additional material, but please make sure to cover these particular days.</p>
+		$body_nw = "Dear Editors-at-Large,\n
+		Thank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Saturday through Friday. You may review additional material, but please make sure to cover these particular days.</p>
 		<p>You should have already received an email from our WordPress installation with login information for digitalhumanitiesnow.org. If you don't see it, please check your spam filter first, and then email us if you need your credentials sent again.</p>
 		<p>Detailed instructions for nominating content can be found at <a href='http://digitalhumanitiesnow.org/editors-corner/instructions/.' target='_blank'>http://digitalhumanitiesnow.org/editors-corner/instructions/</a></p>
 		<p>Please email us at dhnow@pressforward.org with any questions or concerns during this process.</p>
