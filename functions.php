@@ -190,6 +190,13 @@ function dhnsm_settings_init(  ) {
 		'pluginPage', 
 		'dhnsm_pluginPage_section' 
 	);
+	add_settings_field( 
+		'dhnsm_text_field_1', 
+		__( 'Twitter Database Field Name', 'wordpress' ), 
+		'dhnsm_text_field_1_render', 
+		'pluginPage', 
+		'dhnsm_pluginPage_section' 
+	);
 
 
 }
@@ -204,6 +211,12 @@ function dhnsm_text_field_0_render(  ) {
 
 }
 
+function dhnsm_text_field_1_render(  ) {
+	$options = get_option( 'dhnsm_settings' );
+?>
+<input type='text' name='dhnsm_settings[dhnsm_text_field_1]' value='<?php echo $options['dhnsm_text_field_1']; ?>'>
+<?php
+}
 
 function dhnsm_settings_section_callback(  ) { 
 
