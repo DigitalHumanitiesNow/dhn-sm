@@ -4,6 +4,7 @@
 
 $options = get_option('dhnsm_settings'); 
 $db_pie_field = $options['dhnsm_text_field_0'];
+$twitter_db_field = $options['dhnsm_twitter_handle_dbfield'];
 
 function dhn_sm_log($message = '', $reset = false) {
 	$file = 'sm_log.txt';
@@ -88,7 +89,7 @@ function EL_week_data_callback() {
 				} if (is_array($checkbox) && in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
-					$twitter = get_user_meta( $user->ID, 'pie_text_9', true);
+					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
 					$user_name = $userinfo->user_login;
 					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 				}
@@ -192,6 +193,13 @@ function dhnsm_settings_init(  ) {
 		'dhnsm_pluginPage_section' 
 	);
 
+	add_settings_field( 
+		'dhnsm_twitter_handle_dbfield', 
+		__( 'Database Field Name', 'wordpress' ), 
+		'dhnsm_twitter_handle_dbfield_render', 
+		'pluginPage', 
+		'dhnsm_pluginPage_section' 
+	);
 
 
 }
@@ -207,6 +215,14 @@ function dhnsm_text_field_0_render(  ) {
 }
 
 
+function dhnsm_twitter_handle_dbfield_render(  ) { 
+
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_twitter_handle_dbfield]' value='<?php echo $options['dhnsm_twitter_handle_dbfield']; ?>'>
+	<?php
+
+}
 
 function dhnsm_settings_section_callback(  ) { 
 
