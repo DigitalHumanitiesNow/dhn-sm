@@ -88,8 +88,9 @@ function EL_week_data_callback() {
 				} if (is_array($checkbox) && in_array($current_week, $checkbox)) {
 					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
+					$twitter = get_user_meta( $user->ID, 'pie_text_9', true);
 					$user_name = $userinfo->user_login;
-					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 				}
 			
 			}
@@ -100,7 +101,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th>' . $userlist . '</table>
+		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th>' . $userlist . '</table>
 
 	'; 
 
@@ -190,13 +191,7 @@ function dhnsm_settings_init(  ) {
 		'pluginPage', 
 		'dhnsm_pluginPage_section' 
 	);
-	add_settings_field( 
-		'dhnsm_text_field_1', 
-		__( 'Twitter Database Field Name', 'wordpress' ), 
-		'dhnsm_text_field_1_render', 
-		'pluginPage', 
-		'dhnsm_pluginPage_section' 
-	);
+
 
 
 }
@@ -211,12 +206,7 @@ function dhnsm_text_field_0_render(  ) {
 
 }
 
-function dhnsm_text_field_1_render(  ) {
-	$options = get_option( 'dhnsm_settings' );
-?>
-<input type='text' name='dhnsm_settings[dhnsm_text_field_1]' value='<?php echo $options['dhnsm_text_field_1']; ?>'>
-<?php
-}
+
 
 function dhnsm_settings_section_callback(  ) { 
 
@@ -243,53 +233,6 @@ function dhnsm_options_page(  ) {
 	<?php
 
 }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>
