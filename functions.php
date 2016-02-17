@@ -2,7 +2,7 @@
 
 
 
-$options = get_option('dhnsm_settings'); 
+$options = get_option('dhnsm_settings');
 $db_pie_field = $options['dhnsm_text_field_0'];
 $twitter_db_field = $options['dhnsm_twitter_handle_dbfield'];
 
@@ -24,7 +24,7 @@ function tailFile($file, $lines = 1) {
 
 function Log_callback() {
 	$file = 'sm_log.txt';
-	
+
 
 	$file = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
 	$data = file($file);
@@ -32,10 +32,10 @@ function Log_callback() {
 
 
 	$logcontents = '<ul>' . $lines . '</ul>';
-	
+
 	$EL_data_trigger = $_GET['EL_displaylog_trigger'];
      	if (isset($_GET['EL_displaylog_trigger'])){
-     	echo $logcontents; 
+     	echo $logcontents;
      }
      	if ($EL_data_trigger == 'true') {
         //echo 'the values match';
@@ -43,7 +43,7 @@ function Log_callback() {
      	echo 'error the values dont match'; }
     // check to see if log should reset
      	reset_log();
-    exit(); 
+    exit();
 }
 
 //$testfile = WP_PLUGIN_DIR . "/dhn-sm/sm_log.txt";
@@ -65,7 +65,7 @@ function EL_week_data_callback() {
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
 		$args = array ('meta_query'=> array(array('key'=>$GLOBALS['db_pie_field'],),),);
-		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
+		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after.
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
@@ -93,7 +93,7 @@ function EL_week_data_callback() {
 					$user_name = $userinfo->user_login;
 					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 				}
-			
+
 			}
 				//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
@@ -104,53 +104,53 @@ function EL_week_data_callback() {
 
 		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th>' . $userlist . '</table>
 
-	'; 
+	';
 
     $EL_data_trigger = $_GET['EL_data_trigger'];
      	if (isset($_GET['EL_data_trigger'])){
-     	echo $returnstring; 
+     	echo $returnstring;
      }
      	if ($EL_data_trigger == 'true') {
         //echo 'the values match';
      	} else {
      	echo 'error the values dont match'; }
-    
+
 
 		// $prev_count = 0;
 		// $next_count = 0;
 		// $current_count = 0;
-    exit(); 
+    exit();
 
 
     // this is required to return a proper result & exit is faster than die();
-} 
+}
 
 
 
 function EL_Log_Generator() { ?>
 	<script type="text/javascript" >
-		
+
 		jQuery(document).ready(function($) {
 
     		$('.logbutton').click(function(){
-    		
+
         		var data = {
             		'action': 'EL_log_data',
             		'EL_displaylog_trigger': true,
             	};
             	$('.logbutton').attr('disabled','disabled');
-     
+
         	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
         	$.get(ajaxurl, data, function(response) {
         		//alert('test');
         		console.log('the actionhistory button has been clicked.');
             	$('.actionhistory').append('<h3>Action History</h3>')
             	$('.actionhistory').append(response);
-            	  }); 
+            	  });
     		})
-    		}); 
-			
-		
+    		});
+
+
 	</script>
 <?php }
 
@@ -160,52 +160,52 @@ add_action('wp_ajax_EL_log_data', 'Log_callback');
 /* ------------------------------------------------------------------------ *
  * Setting Registration
  * ------------------------------------------------------------------------ */
-//to get value do: 
-//$options = get_option('dhnsm_settings'); 
+//to get value do:
+//$options = get_option('dhnsm_settings');
 //echo $options['dhnsm_text_field_0'];
 add_action( 'admin_menu', 'dhnsm_add_admin_menu' );
 add_action( 'admin_init', 'dhnsm_settings_init' );
 
 
-function dhnsm_add_admin_menu(  ) { 
+function dhnsm_add_admin_menu(  ) {
 
 	add_submenu_page( 'dhn-usermanagement', 'DHNow User Management Plugin Settings', 'Settings', 'manage_options', 'dhn-sm', 'dhnsm_options_page' );
 
 }
 
 
-function dhnsm_settings_init(  ) { 
+function dhnsm_settings_init(  ) {
 
 	register_setting( 'pluginPage', 'dhnsm_settings' );
 
 	add_settings_section(
-		'dhnsm_pluginPage_section', 
-		__( '', 'wordpress' ), 
-		'dhnsm_settings_section_callback', 
+		'dhnsm_pluginPage_section',
+		__( '', 'wordpress' ),
+		'dhnsm_settings_section_callback',
 		'pluginPage'
 	);
 
-	add_settings_field( 
-		'dhnsm_text_field_0', 
-		__( 'Database Field Name', 'wordpress' ), 
-		'dhnsm_text_field_0_render', 
-		'pluginPage', 
-		'dhnsm_pluginPage_section' 
+	add_settings_field(
+		'dhnsm_text_field_0',
+		__( 'Database Field Name', 'wordpress' ),
+		'dhnsm_text_field_0_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
 	);
 
-	add_settings_field( 
-		'dhnsm_twitter_handle_dbfield', 
-		__( 'Database Field Name', 'wordpress' ), 
-		'dhnsm_twitter_handle_dbfield_render', 
-		'pluginPage', 
-		'dhnsm_pluginPage_section' 
+	add_settings_field(
+		'dhnsm_twitter_handle_dbfield',
+		__( 'Database Field Name', 'wordpress' ),
+		'dhnsm_twitter_handle_dbfield_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
 	);
 
 
 }
 
 
-function dhnsm_text_field_0_render(  ) { 
+function dhnsm_text_field_0_render(  ) {
 
 	$options = get_option( 'dhnsm_settings' );
 	?>
@@ -215,7 +215,7 @@ function dhnsm_text_field_0_render(  ) {
 }
 
 
-function dhnsm_twitter_handle_dbfield_render(  ) { 
+function dhnsm_twitter_handle_dbfield_render(  ) {
 
 	$options = get_option( 'dhnsm_settings' );
 	?>
@@ -224,27 +224,27 @@ function dhnsm_twitter_handle_dbfield_render(  ) {
 
 }
 
-function dhnsm_settings_section_callback(  ) { 
+function dhnsm_settings_section_callback(  ) {
 
 	echo __( '', 'wordpress' );
 
 }
 
 
-function dhnsm_options_page(  ) { 
+function dhnsm_options_page(  ) {
 
 	?>
 	<form action='options.php' method='post'>
-		
+
 		<h1>Digital Humanities Now User Management</h1>
 		<h2>Plugin Settings</h2>
-		
+
 		<?php
 		settings_fields( 'pluginPage' );
 		do_settings_sections( 'pluginPage' );
 		submit_button();
 		?>
-		
+
 	</form>
 	<?php
 
