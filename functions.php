@@ -251,4 +251,43 @@ function dhnsm_options_page(  ) {
 }
 
 
+//disable user profile fields
+add_action('admin_init', 'user_profile_fields_disable');
+
+function user_profile_fields_disable() {
+
+    global $pagenow;
+
+    // apply only to user profile or user edit pages
+    if ($pagenow!=='profile.php' && $pagenow!=='user-edit.php') {
+        return;
+    }
+
+    // do not change anything for the administrator
+    // if (current_user_can('administrator')) {
+    //     return;
+    // }
+
+    add_action( 'admin_footer', 'user_profile_fields_disable_js' );
+
+}
+
+
+/**
+ * Disables selected fields in WP Admin user profile (profile.php, user-edit.php)
+ */
+function user_profile_fields_disable_js() {
+?>
+    <script>
+        jQuery(document).ready( function($) {
+            var fields_to_disable = ['.user-twitter-wrap', '.user-facebook-wrap', '.user-linkedin-wrap', '.user-googleplus-wrap', '.user-pinterest-wrap'];
+            for(i=0; i<fields_to_disable.length; i++) {
+                $(fields_to_disable[i]).remove();
+            }
+						
+						$("<br>").insertAfter( $(".usersignupdates") );
+        });
+    </script>
+		<?php
+		}
 ?>
