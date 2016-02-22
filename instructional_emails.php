@@ -13,7 +13,7 @@ function instructions_callback() {
 
      if ($instruction_action_trigger == 'true') {
      	$output = "success";
-     
+
      } else {
      	$output = "<script>console.log('There was not an error calling the instructional email function.');</script>";
      	 echo $output;
@@ -32,21 +32,21 @@ function send_instructions() {
 			'meta_query'     => array(
 				array(
 					'key'       => $GLOBALS['db_pie_field'],
-					
+
 				),
 			),
 		);
 
 		$subj_nw = "Editor-at-Large Instructions";
-		
-		$body_nw = "Dear Editors-at-Large,\n\nThank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Saturday through Friday. You may review additional material, but please make sure to cover these particular days.\n\nYou can login to our site using the login button on the homepage. If you don't remember your username or password you can retrieve it using the 'Forgot my password' link on the login page. Once logged in, you will be redirected to a page with instructions and a button that will take you to 'All Content' to nominate items.\n\nDetailed instructions for nominating content can be found at http://digitalhumanitiesnow.org/editors-corner/instructions/ .\n\nPlease email us at dhnow@pressforward.org with any questions or concerns during this process.\n\nSincerely,\n\nThe Editors.";
+
+		$body_nw = "Dear Editors-at-Large,\n\nThank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Monday through Sunday. You may review additional material, but please make sure to cover these particular days.\n\nYou can login to our site using the login button on the homepage. If you don't remember your username or password you can retrieve it using the 'Forgot my password' link on the login page. Once logged in, you will be redirected to a page with instructions and a button that will take you to 'All Content' to nominate items.\n\nDetailed instructions for nominating content can be found at http://digitalhumanitiesnow.org/editors-corner/instructions/ .\n\nPlease email us at dhnow@pressforward.org with any questions or concerns during this process.\n\nSincerely,\n\nThe Editors.";
 
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
 
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
-		
+
 
 		// Query users based on the above arguments
 		$user_query = new WP_User_Query( $args );
