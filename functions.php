@@ -90,8 +90,8 @@ function EL_week_data_callback() {
 					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
 					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
-					$user_name = $userinfo->user_login;
-					$userlist .= '<tr><td>' . $userinfo->user_login . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
+					$user_name = $userinfo->display_name;
+					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 				}
 
 			}
@@ -284,7 +284,7 @@ function user_profile_fields_disable_js() {
             for(i=0; i<fields_to_disable.length; i++) {
                 $(fields_to_disable[i]).remove();
             }
-						
+
 						$("<br>").insertAfter( $(".usersignupdates") );
         });
     </script>
