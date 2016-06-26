@@ -1,4 +1,13 @@
 <?php
+
+function getStartAndEndDate($year, $week)
+{
+   return [
+      (new DateTime())->setISODate($year, $week)->format('Y-m-d'), //start date
+      (new DateTime())->setISODate($year, $week, 7)->format('Y-m-d') //end date
+   ];
+}
+
   global $wpdb; // this is how you get access to the database
   $userlist = '';
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
@@ -6,7 +15,7 @@
 		$args = array ('meta_query'=> array(array('key'=>$GLOBALS['db_pie_field'],),),);
 
   	//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after.
-		$current_week = date("W");
+		$current_week = 1;
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
 
@@ -15,9 +24,7 @@
 
   	// Create an empty array to save emails to.
 		// The User Loop
-		$prev_count = 0;
-		$next_count = 0;
-		$current_count = 0;
+		while ($current_week <= 54) {
 		if ( ! empty( $user_query->results ) ) {
 		$username;
 			foreach ( $user_query->results as $user ) {
@@ -30,17 +37,18 @@
 					$userinfo = get_userdata($user->ID);
 					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
 					$user_name = $userinfo->display_name;
-					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
+          $printdates = getStartAndEndDate(date("Y"), $current_week);
+					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $current_week . '</td><td>' . $printdates[1] . '</td><td>' . $printdates[2] . '</td></tr>';
 				}
+        $current_week = $current_week + 1;
 
 			}
 				//return(get_user_meta($user->ID, 'last_name'));
 	} //end for each
+} //end while
 	 //endif
 	wp_reset_query();
 
   $returnstring = '<h2>Editor-at-Large Info</h2>
-	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
-
-		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>week number</th>' . $userlist . '</table>';
+		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>week number</th><th>week start date</th><th>week end date</th>' . $userlist . '</table>';
 echo $returnstring
