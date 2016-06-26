@@ -197,4 +197,9 @@ add_action('wp_ajax_EL_week_data', 'EL_week_data_callback');
 
 add_action('admin_footer', 'EL_Log_Generator');
 
+
+
+
+
+
 ?>
