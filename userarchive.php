@@ -40,11 +40,11 @@ function getStartAndEndDate($year, $week)
           $printdates = getStartAndEndDate(date("Y"), $current_week);
 					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $current_week . '</td><td>' . $printdates[1] . '</td><td>' . $printdates[2] . '</td></tr>';
 				}
-        $current_week = $current_week + 1;
 
-			}
-				//return(get_user_meta($user->ID, 'last_name'));
-	} //end for each
+
+			} //end for each
+      $current_week = $current_week + 1;
+	} //end if
 } //end while
 	 //endif
 	wp_reset_query();
