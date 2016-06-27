@@ -16,13 +16,23 @@ function clivern_plugin_top_menu(){
 
 function dhn_archive_page(){
 	?>
-	<div class='wrap'>
-	 <h2>Test</h2>
-   <div> <?php echo getarchivedusers(); ?></div>
+	<div class="row">
+		<div class="col-md-12">
+	 		<h2>User Sign Up Archive</h2>
+ 		</div>
+ 	</div>
+  <div class="row">
+		 <div class="col-md-12">
+			  <?php echo getarchivedusers(); ?>
+			</div>
 	</div>
+
 	<script type="text/javascript" >
 	jQuery(document).ready( function ($) {
-    $('#archive_table').DataTable();
+    $('#archive_table').DataTable( {
+			 "pageLength": 50,
+			 "order": [[ 2, 'asc' ]]
+		});
 	} ); </script>
 
 	<?php
@@ -81,7 +91,6 @@ function getarchivedusers() {
 	 //endif
 	wp_reset_query();
 
-  $returnstring = '<h2>Editor-at-Large Info</h2>
-		<table class="table table-striped display" id="archive_table" style="width: 60%;"><thead><th>Name</th><th>Email</th><th>week number</th><th>week start date</th><th>week end date</th></thead><tbody>' . $userlist . '</tbody></table>';
+  $returnstring = '<table class="table table-striped display" id="archive_table"><thead><th>Name</th><th>Email</th><th>Week Number</th><th>Week Start Date</th><th>Week End Date</th></thead><tbody>' . $userlist . '</tbody></table>';
 return $returnstring;
 }
