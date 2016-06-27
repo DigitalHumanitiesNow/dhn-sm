@@ -31,7 +31,7 @@ function dhn_archive_page(){
 	jQuery(document).ready( function ($) {
     $('#archive_table').DataTable( {
 			 "pageLength": 50,
-			 "order": [[ 3, 'asc' ]],
+			 "order": [[ 4, 'asc' ]],
 		});
 	} ); </script>
 
