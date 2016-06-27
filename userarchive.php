@@ -11,7 +11,7 @@
 
 function clivern_plugin_top_menu(){
 	global $dhnarchivepage;
-	$dhnarchivepage = add_submenu_page('dhn-usermanagement', 'User Archive', 'SignUp Archive', 'manage_options','dhn-archive', 'dhn_archive_page');
+	$dhnarchivepage = add_submenu_page('dhn-usermanagement', 'User Archive', 'User Archive', 'manage_options','dhn-archive', 'dhn_archive_page');
 }
 
 function dhn_archive_page(){
