@@ -160,6 +160,10 @@ add_action('wp_ajax_EL_log_data', 'Log_callback');
 /* ------------------------------------------------------------------------ *
  * Setting Registration
  * ------------------------------------------------------------------------ */
+
+
+
+
 //to get value do:
 //$options = get_option('dhnsm_settings');
 //echo $options['dhnsm_text_field_0'];
@@ -249,6 +253,7 @@ function dhnsm_options_page(  ) {
 	<?php
 
 }
+
 
 
 //disable user profile fields

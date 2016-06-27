@@ -1,5 +1,36 @@
 <?php
 
+/* CREATE SUBPAGE */
+
+//NOTES
+///////
+// add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position);
+//add_menu_page( 'User Management', 'DHNow User Management', 'manage_options', 'dhn-usermanagement', 'user_man_page' );
+//add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function);
+///////
+
+function clivern_plugin_top_menu(){
+	global $dhnarchivepage;
+	$dhnarchivepage = add_submenu_page('dhn-usermanagement', 'SignUp Archive', 'SignUp Archive', 'manage_options','dhn-archive', 'dhn_archive_page');
+}
+
+function dhn_archive_page(){
+	?>
+	<div class='wrap'>
+	 <h2>Test</h2>
+   <div> <?php echo getarchivedusers(); ?></div>
+	</div>
+	<script type="text/javascript" >
+	jQuery(document).ready( function ($) {
+    $('#archive_table').DataTable();
+	} ); </script>
+
+	<?php
+}
+add_action('admin_menu','clivern_plugin_top_menu');
+
+/* FUNCTION TO GET THE START AND END DATE FOR EACH WEEK */
+
 function getStartAndEndDate($year, $week)
 {
    return [
@@ -8,6 +39,8 @@ function getStartAndEndDate($year, $week)
    ];
 }
 
+/* FUCTION TO LOOP THROUGH AND GET TABLE OF USERS */
+function getarchivedusers() {
   global $wpdb; // this is how you get access to the database
   $userlist = '';
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
@@ -33,12 +66,11 @@ function getStartAndEndDate($year, $week)
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
 
         if (is_array($checkbox) && in_array($current_week, $checkbox)) {
-					$current_count = $current_count + 1;
 					$userinfo = get_userdata($user->ID);
 					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
 					$user_name = $userinfo->display_name;
           $printdates = getStartAndEndDate(date("Y"), $current_week);
-					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $current_week . '</td><td>' . $printdates[1] . '</td><td>' . $printdates[2] . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $current_week . '</td><td>' . $printdates[0] . '</td><td>' . $printdates[1] . '</td></tr>';
 				}
 
 
@@ -50,5 +82,6 @@ function getStartAndEndDate($year, $week)
 	wp_reset_query();
 
   $returnstring = '<h2>Editor-at-Large Info</h2>
-		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>week number</th><th>week start date</th><th>week end date</th>' . $userlist . '</table>';
-echo $returnstring
+		<table class="table table-striped display" id="archive_table" style="width: 60%;"><thead><th>Name</th><th>Email</th><th>week number</th><th>week start date</th><th>week end date</th></thead><tbody>' . $userlist . '</tbody></table>';
+return $returnstring;
+}
