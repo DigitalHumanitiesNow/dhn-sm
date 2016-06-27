@@ -80,7 +80,7 @@ function getarchivedusers() {
 					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
 					$user_name = $userinfo->display_name;
           $printdates = getStartAndEndDate(date("Y"), $current_week);
-					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $current_week . '</td><td>' . $printdates[0] . '</td><td>' . $printdates[1] . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>' . $twitter . '</td><td>'. $current_week . '</td><td>' . $printdates[0] . '</td><td>' . $printdates[1] . '</td></tr>';
 				}
 
 
@@ -91,6 +91,6 @@ function getarchivedusers() {
 	 //endif
 	wp_reset_query();
 
-  $returnstring = '<table class="table table-striped display" id="archive_table"><thead><th>Name</th><th>Email</th><th>Week Number</th><th>Week Start Date</th><th>Week End Date</th></thead><tbody>' . $userlist . '</tbody></table>';
+  $returnstring = '<table class="table table-striped display" id="archive_table"><thead><th>Name</th><th>Email</th><th>Twitter</th><th>Week Number</th><th>Week Start Date</th><th>Week End Date</th></thead><tbody>' . $userlist . '</tbody></table>';
 return $returnstring;
 }
