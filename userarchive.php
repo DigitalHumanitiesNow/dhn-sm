@@ -52,6 +52,7 @@ function getStartAndEndDate($year, $week)
 /* FUCTION TO LOOP THROUGH AND GET TABLE OF USERS */
 function getarchivedusers() {
   global $wpdb; // this is how you get access to the database
+	$twitter_db_field = $options['dhnsm_twitter_handle_dbfield'];
   $userlist = '';
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
