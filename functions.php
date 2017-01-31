@@ -91,7 +91,9 @@ function EL_week_data_callback() {
 					$userinfo = get_userdata($user->ID);
 					$twitter = get_user_meta( $user->ID, $GLOBALS['twitter_db_field'], true);
 					$user_name = $userinfo->display_name;
-					$userlist .= '<tr><td>' . $userinfo->display_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
+					$first_name = $userinfo->first_name;
+					$last_name = $userinfo->last_name;
+					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 				}
 
 			}
