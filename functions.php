@@ -82,6 +82,12 @@ function EL_week_data_callback() {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
+				$last_login = (int) get_user_meta( $user->id, 'wp-last-login', true );
+
+				if ( $last_login ) {
+					$format = apply_filters( 'wpll_date_format', get_option( 'date_format' ) );
+					$llvalue  = date_i18n( $format, $last_login );
+				}
 				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
 				} if (is_array($checkbox) && in_array($next_week, $checkbox)) {
@@ -93,8 +99,7 @@ function EL_week_data_callback() {
 					$user_name = $userinfo->display_name;
 					$first_name = $userinfo->first_name;
 					$last_name = $userinfo->last_name;
-					$last_login = get_user_meta($user->ID, 'last_login');
-					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>' . $last_login . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>' . $llvalue . '</td></tr>';
 				}
 
 			}
