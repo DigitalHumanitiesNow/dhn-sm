@@ -89,7 +89,7 @@ function EL_week_data_callback() {
 					$llvalue  = date_i18n( $format, $last_login );
 					return $llvalue;
 				} else {
-					$llvalue = "Never."
+					$llvalue = "Never.";
 					return $llvalue;
 				}
 
@@ -104,7 +104,7 @@ function EL_week_data_callback() {
 					$user_name = $userinfo->display_name;
 					$first_name = $userinfo->first_name;
 					$last_name = $userinfo->last_name;
-					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>' . $llvalue . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>last login:' . $llvalue . '</td></tr>';
 				}
 
 			}
