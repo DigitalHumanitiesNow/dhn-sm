@@ -93,7 +93,8 @@ function EL_week_data_callback() {
 					$user_name = $userinfo->display_name;
 					$first_name = $userinfo->first_name;
 					$last_name = $userinfo->last_name;
-					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
+					$last_login = get_user_meta($user->ID, 'last_login');
+					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>' . $last_login . '</td></tr>';
 				}
 
 			}
@@ -104,7 +105,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th>' . $userlist . '</table>
+		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th><th>Last Login</th>' . $userlist . '</table>
 
 	';
 
@@ -297,4 +298,25 @@ function user_profile_fields_disable_js() {
     </script>
 		<?php
 		}
+
+		/**
+ * Capture user login and add it as timestamp in user meta data
+ *
+ */
+
+function user_last_login( $user_login, $user ) {
+    update_user_meta( $user->ID, 'last_login', time() );
+}
+add_action( 'wp_login', 'user_last_login', 10, 2 );
+
+/**
+ * Display last login time
+ *
+ */
+
+function wpb_lastlogin($userid) {
+	$last_login = get_the_user_meta($userid, 'last_login');
+	$the_login_date = human_time_diff($last_login);
+	return $the_login_date;
+}
 ?>
