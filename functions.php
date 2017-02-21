@@ -84,11 +84,13 @@ function EL_week_data_callback() {
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
 				$last_login = (int) get_user_meta( $user->ID, 'wp-last-login', true );
 
-				if ( $last_login ) {
+				if ($last_login != 0){
 					$format = apply_filters( 'wpll_date_format', get_option( 'date_format' ) );
 					$llvalue  = date_i18n( $format, $last_login );
-					return $llvalue;
+				} else {
+					$llvalue = "Never."
 				}
+
 				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
 				} if (is_array($checkbox) && in_array($next_week, $checkbox)) {
