@@ -87,6 +87,7 @@ function EL_week_data_callback() {
 				if ( $last_login ) {
 					$format = apply_filters( 'wpll_date_format', get_option( 'date_format' ) );
 					$llvalue  = date_i18n( $format, $last_login );
+					return $llvalue;
 				}
 				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
