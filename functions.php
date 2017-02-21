@@ -82,7 +82,7 @@ function EL_week_data_callback() {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
-				$last_login = (int) get_user_meta( $user->id, 'wp-last-login', true );
+				$last_login = (int) get_user_meta( $user->ID, 'wp-last-login', true );
 
 				if ( $last_login ) {
 					$format = apply_filters( 'wpll_date_format', get_option( 'date_format' ) );
