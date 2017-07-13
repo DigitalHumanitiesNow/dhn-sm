@@ -13,7 +13,7 @@ function followup_callback() {
 
      if ($followup_action_trigger == 'true') {
      	$output = "success";
-     
+
      } else {
      	$output = "<script>console.log('There was not an error calling the followup email function.');</script>";
      	 echo $output;
@@ -32,21 +32,21 @@ function send_followup() {
 			'meta_query'     => array(
 				array(
 					'key'       => $GLOBALS['db_pie_field'],
-					
+
 				),
 			),
 		);
 
 		$subj_pw = "Thank you for editing Digital Humanities Now!";
-		
+
 		$body_pw = "Dear Editors-at-Large,\n\nWe would love to hear back from you about your experience as an Editor-at-Large.\n\nYou can find our feedback form at http://digitalhumanitiesnow.org/editors-corner/feedback/\nWe always welcome submissions from former Editors-at-Large using the Nominate This bookmarklet and your WordPress login. You can find instructions for using the bookmarklet here: https://github.com/PressForward/pressforward/wiki/User-Manual#installing-and-using-the-nominate-this-bookmarklet\n\nSincerely\n\nThe Editors.";
 
-		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after. 
+		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after.
 
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
-		echo '<script>console.log(' . $prev_week . ');</script>';
+		echo '<script>console.log(' . $previous_week . ');</script>';
 
 		// Query users based on the above arguments
 		$user_query = new WP_User_Query( $args );
@@ -66,7 +66,7 @@ function send_followup() {
 						$emails_pw[] = $userinfo->user_email;
 					}
 			} //end foreach
-			
+
 			$headers[] .= 'From: Digital Humanities Now <dhnow@pressforward.org>';
 			$to = 'dhnow@pressforward.org';
 			wp_mail($to, $subj_pw, $body_pw, $headers);
