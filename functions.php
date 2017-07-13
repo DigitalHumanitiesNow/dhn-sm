@@ -65,6 +65,7 @@ function EL_week_data_callback() {
      	// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhno this value is pie_checkbox_6
 		$args = array ('meta_query'=> array(array('key'=>$GLOBALS['db_pie_field'],),),);
+
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after.
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
@@ -82,16 +83,8 @@ function EL_week_data_callback() {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
-				$last_login = (int) get_user_meta( $user->ID, 'wp-last-login', true );
+				//$last_login = (int) get_user_meta( $user->ID, 'wp-last-login', true );
 
-				if ($last_login != 0){
-					$format = apply_filters( 'wpll_date_format', get_option( 'date_format' ) );
-					$llvalue  = date_i18n( $format, $last_login );
-					return $llvalue;
-				} else {
-					$llvalue = "Never.";
-					return $llvalue;
-				}
 
 				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
 					$prev_count = $prev_count + 1;
@@ -104,7 +97,9 @@ function EL_week_data_callback() {
 					$user_name = $userinfo->display_name;
 					$first_name = $userinfo->first_name;
 					$last_name = $userinfo->last_name;
+
 					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>last login:' . $llvalue . '</td></tr>';
+
 				}
 
 			}

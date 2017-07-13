@@ -191,6 +191,7 @@ function EL_Info_Generator() {
         		//alert('test');
         		console.log('week data function loaded');
             	$('.weeksetup').append(response)  }); //end .get
+              
     		}); //end .instructions_button
 
 
