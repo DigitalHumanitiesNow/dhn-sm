@@ -46,6 +46,7 @@ function send_followup() {
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
+    $current_year = date("Y");
 		echo '<script>console.log(' . $previous_week . ');</script>';
 
 		// Query users based on the above arguments
@@ -72,7 +73,7 @@ function send_followup() {
 			wp_mail($to, $subj_pw, $body_pw, $headers);
 		}//end if
 		$weekstart = new DateTime();
-		$weekstart->setISODate(2015, $prev_week);
+		$weekstart->setISODate($current_year, $prev_week);
 		if( empty( $emails_pw ) ) {
 		echo '<div style="margin-top: 10px;" class="alert alert-danger" role="alert">The follow up emails for the week of ' . $weekstart->format('d-M-Y') . ' were not sent. There are no users registered.</div>';
 		$failurelogmsg = '<li>' . date(DATE_RSS) . ' An attempt was made to send the follow up emails but there are no users signed up. Emails did not send.</li>';
