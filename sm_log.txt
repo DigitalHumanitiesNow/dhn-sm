@@ -8,3 +8,4 @@
 <li>Mon, 07 Aug 2017 13:04:07 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li>
 <li>Mon, 07 Aug 2017 13:04:56 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li><p></p>
 <li>Mon, 07 Aug 2017 13:05:31 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li><p>this is a test of the email field box.</p>
+<li>Mon, 07 Aug 2017 13:18:02 +0000 sent the instructional email to: aregan2@gmu.edu</li><p>this is a test of the email field box.
