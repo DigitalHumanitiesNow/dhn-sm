@@ -5,3 +5,6 @@
 <li>Thu, 13 Jul 2017 20:42:15 +0000 sent the follow up email to: test@test.com ,test2@test.com</li>
 <li>Thu, 13 Jul 2017 20:43:12 +0000 sent the follow up email to: test@test.com ,test2@test.com</li>
 <li>Thu, 13 Jul 2017 20:43:49 +0000 sent the follow up email to: test@test.com ,test2@test.com</li>
+<li>Mon, 07 Aug 2017 13:04:07 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li>
+<li>Mon, 07 Aug 2017 13:04:56 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li><p></p>
+<li>Mon, 07 Aug 2017 13:05:31 +0000 An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li><p>this is a test of the email field box.</p>
