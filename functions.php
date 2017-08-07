@@ -199,7 +199,7 @@ function dhnsm_settings_init(  ) {
 
 	add_settings_field(
 		'dhnsm_text_field_0',
-		__( 'Database Field Name', 'wordpress' ),
+		__( 'Sign Up Dates DB Field Name', 'wordpress' ),
 		'dhnsm_text_field_0_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
@@ -207,7 +207,7 @@ function dhnsm_settings_init(  ) {
 
 	add_settings_field(
 		'dhnsm_twitter_handle_dbfield',
-		__( 'Database Field Name', 'wordpress' ),
+		__( 'Twitter DB Field Name', 'wordpress' ),
 		'dhnsm_twitter_handle_dbfield_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
