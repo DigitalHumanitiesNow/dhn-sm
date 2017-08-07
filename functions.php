@@ -320,24 +320,6 @@ function user_profile_fields_disable_js() {
 		<?php
 		}
 
-		/**
- * Capture user login and add it as timestamp in user meta data
- *
- */
 
-function user_last_login( $user_login, $user ) {
-    update_user_meta( $user->ID, 'last_login', time() );
-}
-add_action( 'wp_login', 'user_last_login', 10, 2 );
 
-/**
- * Display last login time
- *
- */
-
-function wpb_lastlogin($userid) {
-	$last_login = get_the_user_meta($userid, 'last_login');
-	$the_login_date = human_time_diff($last_login);
-	return $the_login_date;
-}
 ?>
