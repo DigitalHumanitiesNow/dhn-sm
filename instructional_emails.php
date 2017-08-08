@@ -25,7 +25,7 @@ function instructions_callback() {
 function send_instructions() {
 		global $wpdb;
     $options = get_option('dhnsm_settings');
-    $db_email_text1= $options['dhnsm_email_field1'];
+    $db_instructional_email_text= $options['dhnsm_instructional_email_field'];
 		// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhnow this value is pie_checkbox_6, imac test site 10, laptop 3.
 		$args = array (
@@ -38,7 +38,7 @@ function send_instructions() {
 		);
 
 		$subj_nw = "Editor-at-Large Instructions";
-    $body_nw = $db_email_text1;
+    $body_nw = $db_instructional_email_text
 		//$body_nw = "Dear Editors-at-Large,\n\nThank you for volunteering to help Digital Humanities Now. You have signed up to be an Editor-at-Large next week, from Monday through Sunday. You may review additional material, but please make sure to cover these particular days.\n\nYou can login to our site using the login button on the homepage. If you don't remember your username or password you can retrieve it using the 'Forgot my password' link on the login page. Once logged in, you will be redirected to a page with instructions and a button that will take you to 'All Content' to nominate items.\n\nDetailed instructions for nominating content can be found at http://digitalhumanitiesnow.org/editors-corner/instructions/ .\n\nPlease email us at dhnow@pressforward.org with any questions or concerns during this process.\n\nSincerely,\n\nThe Editors.";
 
 		//Get the current week number. TO DO: change this so that we can use same code to find all users for the week before and the week after.
