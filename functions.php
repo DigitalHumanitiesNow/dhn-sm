@@ -220,6 +220,13 @@ function dhnsm_settings_init(  ) {
 		'dhnsm_pluginPage_section'
 	);
 
+	add_settings_field(
+		'dhnsm_followup_email_field',
+		__( 'Email', 'wordpress' ),
+		'dhnsm_followup_email_field_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
+	);
 }
 
 function dhnsm_text_field_0_render(  ) {
@@ -252,6 +259,13 @@ function dhnsm_instructional_email_field_render() {
 	$args = array("textarea_name" => "dhnsm_settings[dhnsm_instructional_email_field]");
 	wp_editor( $options['dhnsm_instructional_email_field'], "dhnsm_instructional_email_field", $args );
 }
+
+function dhnsm_followup_email_field_render() {
+	$options = get_option('dhnsm_settings');
+	$args = array("textarea_name" => "dhnsm_settings[dhnsm_followup_email_field]");
+	wp_editor( $options['dhnsm_followup_email_field'], "dhnsm_followup_email_field", $args );
+}
+
 function dhnsm_settings_section_callback(  ) {
 
 	echo __( '', 'wordpress' );
