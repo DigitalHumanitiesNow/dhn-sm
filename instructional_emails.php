@@ -46,7 +46,7 @@ function send_instructions() {
 		$current_week = date("W");
 		$prev_week = date("W") - 1;
 		$next_week = date("W") + 1;
-
+    $current_year = date("Y");
 
 		// Query users based on the above arguments
 		$user_query = new WP_User_Query( $args );
@@ -71,7 +71,7 @@ function send_instructions() {
 			wp_mail($to, $subj_nw, $body_nw, $headers);
 		}//end if
 		$weekstart = new DateTime();
-		$weekstart->setISODate(2015, $next_week);
+		$weekstart->setISODate($current_year, $next_week);
 		if( empty( $emails_nw ) ) {
 		echo '<div style="margin-top: 10px;" class="alert alert-danger" role="alert">The instructional emails for the week of ' . $weekstart->format('d-M-Y') . ' were not sent successfully. There are no users registered.</div>';
 		$failurelogmsg = '<li>' . date(DATE_RSS) . ' An attempt was made to send the instructional emails but there are no users signed up. Emails did not send.</li><p>' . $db_email_text1 . '</p>';
