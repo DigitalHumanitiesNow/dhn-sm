@@ -83,7 +83,7 @@ function EL_week_data_callback() {
 				//echo '<p>found a user</p><br>';
 				$allmeta = get_user_meta($user->ID);
 				$checkbox = get_user_meta($user->ID, $GLOBALS['db_pie_field'] , true);
-				//$last_login = (int) get_user_meta( $user->ID, 'wp-last-login', true );
+
 
 
 				if (is_array($checkbox) && in_array($prev_week, $checkbox)) {
@@ -98,7 +98,7 @@ function EL_week_data_callback() {
 					$first_name = $userinfo->first_name;
 					$last_name = $userinfo->last_name;
 
-					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td><td>last login:' . $llvalue . '</td></tr>';
+					$userlist .= '<tr><td>' . $userinfo->first_name . ' ' . $userinfo->last_name . '</td><td>' . $userinfo->user_email . '</td><td>'. $twitter . '</td></tr>';
 
 				}
 
@@ -110,7 +110,7 @@ function EL_week_data_callback() {
 	$returnstring = '<h2>Editor-at-Large Info</h2>
 	This week there are ' . $current_count . ' editor(s) signed up. Last week we had '. $prev_count . ' editor(s) signed up. Currently, there are ' . $next_count . ' editor(s) signed up for next week. See the table below for a list of current editor-at-large names and emails.
 
-		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th><th>Last Login</th>' . $userlist . '</table>
+		<table class="table table-striped" style="width: 60%;"><th>Name</th><th>Email</th><th>Twitter Handle</th>' . $userlist . '</table>
 
 	';
 
