@@ -214,7 +214,7 @@ function dhnsm_settings_init(  ) {
 	);
 	add_settings_field(
 		'dhnsm_instructional_email_field',
-		__( 'Email', 'wordpress' ),
+		__( 'Text for the Instructional Email', 'wordpress' ),
 		'dhnsm_instructional_email_field_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
@@ -222,7 +222,7 @@ function dhnsm_settings_init(  ) {
 
 	add_settings_field(
 		'dhnsm_followup_email_field',
-		__( 'Email', 'wordpress' ),
+		__( 'Text for the Follow Up Email', 'wordpress' ),
 		'dhnsm_followup_email_field_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'

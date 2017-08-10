@@ -26,6 +26,7 @@ function followup_callback() {
 
 function send_followup() {
 		global $wpdb;
+    $options = get_option('dhnsm_settings');
     $db_followup_email_text= $options['dhnsm_followup_email_field'];
 		// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhnow this value is pie_checkbox_6, imac test site 10, laptop 3.
@@ -85,7 +86,7 @@ function send_followup() {
 		'<br>Emails were sent to: <br>
 		<table class="table table-striped">' . $userdetails . '</table>';
 		$logemails = implode(" ,", $emails_pw);
-		$logmessage = '<li>' . date(DATE_RSS) . ' sent the follow up email to: ' .  $logemails . '</li>';
+		$logmessage = '<li>' . date(DATE_RSS) . ' sent the follow up email to: ' .  $logemails . '</li>' . $db_followup_email_text;
 		dhn_sm_log($logmessage);
 		}
 		//unset($userdetails);

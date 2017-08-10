@@ -81,7 +81,7 @@ function send_instructions() {
 		'<br>Emails were sent to: <br>
 		<table class="table table-striped">' . $userdetails . '</table>';
 		$logemails = implode(" ,", $emails_nw);
-		$logmessage = '<li>' . date(DATE_RSS) . ' sent the instructional email to: ' .  $logemails . '</li><p>' . $db_email_text1;
+		$logmessage = '<li>' . date(DATE_RSS) . ' sent the instructional email to: ' .  $logemails . '</li><p>';
 		dhn_sm_log($logmessage);
 		}
 		//unset($userdetails);
