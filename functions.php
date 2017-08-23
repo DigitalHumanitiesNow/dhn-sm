@@ -197,6 +197,7 @@ function dhnsm_settings_init(  ) {
 		'pluginPage'
 	);
 
+
 	add_settings_field(
 		'dhnsm_text_field_0',
 		__( 'Sign Up Dates DB Field Name', 'wordpress' ),
@@ -213,12 +214,41 @@ function dhnsm_settings_init(  ) {
 		'dhnsm_pluginPage_section'
 	);
 	add_settings_field(
+		'dhnsm_subject_field_1',
+		__( 'Subject for Instructional Email', 'wordpress' ),
+		'dhnsm_subject_field_1_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
+	);
+	add_settings_field(
+		'dhnsm_return_email_1',
+		__( 'Return Email Address', 'wordpress' ),
+		'dhnsm_return_email_1_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
+	);
+	add_settings_field(
 		'dhnsm_instructional_email_field',
 		__( 'Text for the Instructional Email', 'wordpress' ),
 		'dhnsm_instructional_email_field_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
 	);
+	add_settings_field(
+		'dhnsm_subject_field_2',
+		__( 'Subject for Followup Email', 'wordpress' ),
+		'dhnsm_subject_field_2_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
+	);
+	add_settings_field(
+		'dhnsm_return_email_2',
+		__( 'Return Email Address', 'wordpress' ),
+		'dhnsm_return_email_2_render',
+		'pluginPage',
+		'dhnsm_pluginPage_section'
+	);
+
 
 	add_settings_field(
 		'dhnsm_followup_email_field',
@@ -237,7 +267,23 @@ function dhnsm_text_field_0_render(  ) {
 	<?php
 
 }
+function dhnsm_subject_field_1_render(  ) {
 
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_subject_field_1]' value='<?php echo $options['dhnsm_subject_field_1']; ?>'>
+	<?php
+
+}
+
+function dhnsm_subject_field_2_render(  ) {
+
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_subject_field_2]' value='<?php echo $options['dhnsm_subject_field_2']; ?>'>
+	<?php
+
+}
 
 function dhnsm_twitter_handle_dbfield_render(  ) {
 
@@ -264,6 +310,22 @@ function dhnsm_followup_email_field_render() {
 	$options = get_option('dhnsm_settings');
 	$args = array("textarea_name" => "dhnsm_settings[dhnsm_followup_email_field]");
 	wp_editor( $options['dhnsm_followup_email_field'], "dhnsm_followup_email_field", $args );
+}
+function dhnsm_return_email_1_render(  ) {
+
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_return_email_1]' value='<?php echo $options['dhnsm_return_email_1']; ?>'>
+	<?php
+
+}
+function dhnsm_return_email_2_render(  ) {
+
+	$options = get_option( 'dhnsm_settings' );
+	?>
+	<input type='text' name='dhnsm_settings[dhnsm_return_email_2]' value='<?php echo $options['dhnsm_return_email_2']; ?>'>
+	<?php
+
 }
 
 function dhnsm_settings_section_callback(  ) {
