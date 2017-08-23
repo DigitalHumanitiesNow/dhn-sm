@@ -222,7 +222,7 @@ function dhnsm_settings_init(  ) {
 	);
 	add_settings_field(
 		'dhnsm_return_email_1',
-		__( 'Return Email Address', 'wordpress' ),
+		__( 'Return Address for Instructional Email', 'wordpress' ),
 		'dhnsm_return_email_1_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
@@ -243,7 +243,7 @@ function dhnsm_settings_init(  ) {
 	);
 	add_settings_field(
 		'dhnsm_return_email_2',
-		__( 'Return Email Address', 'wordpress' ),
+		__( 'Return Address for Followup Email', 'wordpress' ),
 		'dhnsm_return_email_2_render',
 		'pluginPage',
 		'dhnsm_pluginPage_section'
