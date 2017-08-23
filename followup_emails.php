@@ -28,6 +28,7 @@ function send_followup() {
 		global $wpdb;
     $options = get_option('dhnsm_settings');
     $db_followup_email_text= $options['dhnsm_followup_email_field'];
+    $returnemail = $options['dhnsm_return_email_1'];
 		// WP_User_Query arguments. Search the database for the values from the pie checkbox.
 		//dhnow this value is pie_checkbox_6, imac test site 10, laptop 3.
 		$args = array (
@@ -39,7 +40,7 @@ function send_followup() {
 			),
 		);
 
-		$subj_pw = "Thank you for editing Digital Humanities Now!";
+		$subj_pw = $options['dhnsm_subject_field_1'];
 
     $body_pw = $db_followup_email_text;
 		//$body_pw = "Dear Editors-at-Large,\n\nWe would love to hear back from you about your experience as an Editor-at-Large.\n\nYou can find our feedback form at http://digitalhumanitiesnow.org/editors-corner/feedback/\nWe always welcome submissions from former Editors-at-Large using the Nominate This bookmarklet and your WordPress login. You can find instructions for using the bookmarklet here: https://github.com/PressForward/pressforward/wiki/User-Manual#installing-and-using-the-nominate-this-bookmarklet\n\nSincerely\n\nThe Editors.";
@@ -71,7 +72,7 @@ function send_followup() {
 					}
 			} //end foreach
 
-			$headers[] .= 'From: Digital Humanities Now <dhnow@pressforward.org>';
+			$headers[] .= 'From: Digital Humanities Now <' . $returnemail . '>';
 			$to = 'dhnow@pressforward.org';
 			wp_mail($to, $subj_pw, $body_pw, $headers);
 		}//end if
