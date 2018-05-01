@@ -71,8 +71,8 @@ function send_followup() {
 						$emails_pw[] = $userinfo->user_email;
 					}
 			} //end foreach
-
-			$headers[] .= 'From: Digital Humanities Now <' . $returnemail . '>';
+      $site_title = get_bloginfo( 'name' );
+			$headers[] .= 'From:' . $site_title . ' <' . $returnemail . '>';
         #the users are bcc'd so set the to field to the return email.
 			$to = $returnemail;
 			wp_mail($to, $subj_pw, $body_pw, $headers);
