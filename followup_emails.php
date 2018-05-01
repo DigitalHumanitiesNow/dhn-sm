@@ -73,7 +73,7 @@ function send_followup() {
 			} //end foreach
 
 			$headers[] .= 'From: Digital Humanities Now <' . $returnemail . '>';
-			$to = 'dhnow@pressforward.org';
+			$to = $returnemail;
 			wp_mail($to, $subj_pw, $body_pw, $headers);
 		}//end if
 		$weekstart = new DateTime();
