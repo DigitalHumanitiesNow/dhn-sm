@@ -68,7 +68,8 @@ function send_instructions() {
 					}
 			} //end foreach
 			$headers[] .= 'From: Digital Humanities Now <' . $returnemail . '>';
-			$to = $returnemail;
+      #the users are bcc'd so set the to field to the return email.
+      $to = $returnemail;
 			wp_mail($to, $subj_nw, $body_nw, $headers);
 		}//end if
 		$weekstart = new DateTime();

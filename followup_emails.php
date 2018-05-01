@@ -73,6 +73,7 @@ function send_followup() {
 			} //end foreach
 
 			$headers[] .= 'From: Digital Humanities Now <' . $returnemail . '>';
+        #the users are bcc'd so set the to field to the return email.
 			$to = $returnemail;
 			wp_mail($to, $subj_pw, $body_pw, $headers);
 		}//end if
