@@ -68,8 +68,8 @@ function send_instructions() {
 					}
 			} //end foreach
       $site_title = get_bloginfo( 'name' );
-			$headers[] .= 'From:' . $site_title . <' . $returnemail . '>';
-      #the users are bcc'd so set the to field to the return email.
+			$headers[] .= 'From:' . $site_title . ' <' . $returnemail . '>';
+      // the users are bcc'd so set the to field to the return email.
       $to = $returnemail;
 			wp_mail($to, $subj_nw, $body_nw, $headers);
 		}//end if

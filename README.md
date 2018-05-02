@@ -1,4 +1,9 @@
-# dhn-sm
-Digital Humanities Now Site Management Plugin
+# Digital Humanities Now User Management Plugin
+This plugin was developed to manage communications with Digital Humanities Now's Editors-at-Large who sign up on a weekly basis to contribute to _Digital Humanities Now_. User management on the site is handled by Pie Register and this plugin queries the fields created by that plugin to generate a list of users who are signed up each week and send them emails. Below is a description of how to set up the plugin and a description of the purpose of each feature in the User Management plugin.
 
-Changes
+Digital Humanities Now operates on a weekly schedule. Each user who signs up is asked to contribute for a period of 7 days beginning Sunday and ending the following Saturday. When they sign up and select the dates that they would like to volunteer for the number of that week is stored in a serialized field in WordPress's user meta table. So for example if a user is signed up to edit DHNow for the calendar week of December 31st to January 6th a 1 is stored in the database because that is the first calendar week of the year. If they also sign up for June 3rd to the 9th, `23` is also stored in the database. These calendar week numbers are what is used to determine what users are signed up for the current week.
+
+## Setting Up Pie Register to Interface with the User Management plugin
+This plugin requires Pie Register 1.0 to operate or a database field for each user containing the week numbers that they are signed up for. Sign up dates are added via a checkbox field to the sign up form. Each checkbox entry contains a week's dates in the display value field (i.e. `June 3-9`) and the calendar week number in the value field (i.e. `23`). This field appears in both the registration field and in the user's profile allowing them to change or modify their sign up dates at any time. Below are step by step directions to setting a new database field up for a year.
+1. Install Pie Register from the DHNow forked copy. (The plugin has since updated and does not work with the user management plugin).
+2. Create a registration form and add a checkbox field that contains the dates available for users to sign up in the display value field and the corresponding number of the calendar week in the value field.
